@@ -1,8 +1,13 @@
 <!DOCTYPE html>
-<html lang="es" class="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
     <title>Norteva | IA Local para Chihuahua</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -41,16 +46,61 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-image: radial-gradient(circle at 85% 0%, rgba(34, 197, 94, 0.1), transparent 28rem), linear-gradient(135deg, #020617 0%, #0f172a 55%, #111827 100%);
+            background-image: radial-gradient(circle at 85% 0%, rgba(34, 197, 94, 0.12), transparent 28rem), radial-gradient(circle at 8% 42%, rgba(37, 99, 235, 0.08), transparent 24rem), linear-gradient(135deg, #020617 0%, #0f172a 55%, #111827 100%);
             transition: background-color 200ms ease, color 200ms ease;
         }
         .hero-banner {
-            background: linear-gradient(115deg, #064e3b 0%, #0f766e 42%, #2563eb 100%);
+            background: radial-gradient(circle at 88% 30%, rgba(45, 212, 191, 0.34), transparent 14rem), linear-gradient(115deg, #064e3b 0%, #0f766e 42%, #2563eb 100%);
+            box-shadow: 0 24px 70px rgba(2, 6, 23, 0.32);
         }
         .hero-grid {
             background-image: linear-gradient(rgba(255,255,255,.09) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.09) 1px, transparent 1px);
             background-size: 32px 32px;
             mask-image: linear-gradient(to left, black, transparent 75%);
+        }
+        .hero-network {
+            background: radial-gradient(circle, rgba(255,255,255,.92) 0 3px, transparent 4px) 0 0 / 72px 72px;
+            mask-image: radial-gradient(ellipse at center, black 0%, transparent 68%);
+        }
+        .hero-network::before,
+        .hero-network::after {
+            content: '';
+            position: absolute;
+            inset: 18% 8%;
+            border: 1px solid rgba(255,255,255,.3);
+            border-radius: 999px;
+            transform: rotate(28deg);
+        }
+        .hero-network::after {
+            transform: rotate(-28deg) scale(.72);
+            border-color: rgba(167,243,208,.42);
+        }
+        .hero-orbit {
+            animation: norteva-drift 12s ease-in-out infinite alternate;
+        }
+        .project-card {
+            animation: norteva-rise 500ms ease both;
+        }
+        .project-card::before {
+            content: '';
+            position: absolute;
+            inset: 0 auto 0 0;
+            width: 3px;
+            border-radius: 3px 0 0 3px;
+            background: linear-gradient(to bottom, #34d399, #3b82f6);
+            opacity: .8;
+        }
+        @keyframes norteva-drift {
+            from { transform: translate3d(0, 0, 0) rotate(-2deg); }
+            to { transform: translate3d(10px, -6px, 0) rotate(2deg); }
+        }
+        @keyframes norteva-rise {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .hero-orbit,
+            .project-card { animation: none; }
         }
         .theme-button[aria-pressed="true"] {
             background: rgb(245 158 11 / 0.16);
@@ -58,7 +108,7 @@
         }
         html:not(.dark) body {
             background-color: #f8fafc;
-            background-image: radial-gradient(circle at 85% 0%, rgba(16, 185, 129, 0.14), transparent 28rem), linear-gradient(135deg, #f8fafc 0%, #eef6f4 55%, #eff6ff 100%);
+            background-image: radial-gradient(circle at 85% 0%, rgba(16, 185, 129, 0.16), transparent 28rem), radial-gradient(circle at 8% 42%, rgba(37, 99, 235, 0.08), transparent 24rem), linear-gradient(135deg, #f8fafc 0%, #eef6f4 55%, #eff6ff 100%);
             color: #0f172a;
         }
         html:not(.dark) .border-slate-800,
@@ -156,7 +206,10 @@
         <!-- Intro Banner -->
         <section class="hero-banner border border-emerald-300/20 rounded-3xl p-6 md:p-10 relative overflow-hidden shadow-2xl">
             <div class="hero-grid absolute inset-y-0 right-0 w-2/3 opacity-60 pointer-events-none"></div>
-            <div class="absolute -right-16 -bottom-24 w-80 h-80 border-[28px] border-white/10 rounded-full pointer-events-none"></div>
+            <div class="hero-network hero-orbit absolute -right-16 -top-10 w-[28rem] h-[28rem] opacity-70 pointer-events-none"></div>
+            <div class="absolute right-10 bottom-8 hidden md:flex h-28 w-28 items-center justify-center rounded-full border border-white/25 bg-white/10 backdrop-blur-sm pointer-events-none">
+                <i data-lucide="compass" class="w-12 h-12 text-emerald-100"></i>
+            </div>
             <div class="max-w-3xl space-y-4 relative z-10">
                 <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-white/15 text-emerald-50 border border-white/20" id="regionLabel">
                     <i data-lucide="map-pin" class="w-3.5 h-3.5"></i> Estado de Chihuahua
@@ -635,13 +688,17 @@
 
             let totalMatches = 0;
 
-            const catalogData = activeTab === 'ai' ? projectData : itServicesData;
-            const categories = activeTab === 'ai' ? translations[currentLanguage].categories : translations[currentLanguage].itCategories;
+            const query = filterText.trim().toLowerCase();
+            const catalogData = query
+                ? [
+                    ...projectData.map(tierData => ({ ...tierData, catalogType: 'ai' })),
+                    ...itServicesData.map(tierData => ({ ...tierData, catalogType: 'it' }))
+                ]
+                : (activeTab === 'ai' ? projectData : itServicesData).map(tierData => ({ ...tierData, catalogType: activeTab }));
 
             catalogData.forEach(tierData => {
                 // Filter projects based on search query
                 const filteredProjects = tierData.projects.filter(project => {
-                    const query = filterText.toLowerCase();
                     return project.name.toLowerCase().includes(query) ||
                            project.description.toLowerCase().includes(query) ||
                            project.tag.toLowerCase().includes(query) ||
@@ -652,6 +709,9 @@
                 if (filteredProjects.length === 0) return;
 
                 totalMatches += filteredProjects.length;
+                const categories = tierData.catalogType === 'ai'
+                    ? translations[currentLanguage].categories
+                    : translations[currentLanguage].itCategories;
 
                 // Section HTML
                 const tierSection = document.createElement('section');
@@ -671,7 +731,7 @@
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4">
-                        ${filteredProjects.map(project => createProjectCardHTML(project, tierData.borderColor)).join('')}
+                        ${filteredProjects.map(project => createProjectCardHTML(project, tierData.borderColor, tierData.catalogType)).join('')}
                     </div>
                 `;
 
@@ -693,11 +753,11 @@
         }
 
         // HTML Generator for public-facing project cards.
-        function createProjectCardHTML(project, borderHighlight) {
-            const audienceLabel = activeTab === 'ai' ? translations[currentLanguage].audience : translations[currentLanguage].useCases;
-            const locationLabel = activeTab === 'ai' ? translations[currentLanguage].locations : translations[currentLanguage].technologies;
+        function createProjectCardHTML(project, borderHighlight, catalogType) {
+            const audienceLabel = catalogType === 'ai' ? translations[currentLanguage].audience : translations[currentLanguage].useCases;
+            const locationLabel = catalogType === 'ai' ? translations[currentLanguage].locations : translations[currentLanguage].technologies;
             return `
-                <article class="relative min-h-64 bg-slate-900/75 hover:bg-slate-900 border border-slate-800/80 hover:${borderHighlight} rounded-xl p-5 transition-all duration-300 shadow-lg hover:shadow-2xl flex flex-col gap-5">
+                <article class="project-card relative min-h-64 bg-slate-900/75 hover:bg-slate-900 border border-slate-800/80 hover:${borderHighlight} rounded-xl p-5 transition-all duration-300 shadow-lg hover:shadow-2xl flex flex-col gap-5">
                     <div class="space-y-3">
                         <span class="inline-flex px-2.5 py-1 rounded-md text-[10px] font-semibold tracking-wider uppercase bg-slate-800 text-slate-300 border border-slate-700/50">
                             ${project.tag}
@@ -731,7 +791,9 @@
 
         // Initialize Application
         document.addEventListener('DOMContentLoaded', () => {
-            applyLanguage('es');
+            const browserLanguages = navigator.languages?.length ? navigator.languages : [navigator.language];
+            const initialLanguage = browserLanguages.some(language => language.toLowerCase().startsWith('es')) ? 'es' : 'en';
+            applyLanguage(initialLanguage);
 
             // Live Search Listener
             const searchInput = document.getElementById('searchInput');
