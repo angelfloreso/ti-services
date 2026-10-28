@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo de Proyectos de IA Local - Chihuahua</title>
+    <title>Norteva | IA Local para Chihuahua</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -85,6 +85,11 @@
             background-image: linear-gradient(to right, #0f766e, #2563eb);
         }
         html:not(.dark) .language-button[aria-pressed="true"] { color: #047857; }
+        html:not(.dark) .catalog-tab[aria-selected="true"] {
+            background-color: #d1fae5;
+            border-color: #6ee7b7;
+            color: #065f46;
+        }
         html:not(.dark) .theme-button[aria-pressed="true"] { color: #b45309; }
         .language-button[aria-pressed="true"] {
             background: rgb(34 197 94 / 0.16);
@@ -112,14 +117,14 @@
     <header class="border-b border-slate-800 bg-slate-900/50 backdrop-blur-md sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="flex items-center gap-3">
-                <div class="p-2 bg-brand-500/10 border border-brand-500/20 rounded-xl text-brand-500">
-                    <i data-lucide="cpu" class="w-7 h-7"></i>
+                <div class="p-2 bg-brand-500/10 border border-brand-500/20 rounded-xl text-brand-500" aria-hidden="true">
+                    <i data-lucide="compass" class="w-7 h-7"></i>
                 </div>
                 <div>
                     <h1 class="text-xl font-bold bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
-                        Portafolio de IA Local - Chihuahua
+                        Norteva
                     </h1>
-                        <p class="text-xs text-slate-400">Iniciativas y soluciones para el estado</p>
+                        <p class="text-xs text-slate-400">IA local para Chihuahua</p>
                 </div>
             </div>
 
@@ -191,7 +196,7 @@
     <!-- Footer -->
     <footer class="border-t border-slate-800 bg-slate-900/40 py-8 mt-12">
         <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500 space-y-2">
-            <p id="footerCopyright">© 2026 Catálogo de Proyectos de IA Local - Chihuahua.</p>
+            <p id="footerCopyright">© 2026 Norteva | IA Local para Chihuahua.</p>
             <p class="text-slate-600" id="footerDescription">Una selección de iniciativas para el desarrollo industrial, agrícola, comercial y social del estado.</p>
         </div>
     </footer>
@@ -517,9 +522,9 @@
 
         const translations = {
             es: {
-                pageTitle: 'Catálogo de Proyectos de IA Local - Chihuahua',
-                headerTitle: 'Catálogo de IA Local - Chihuahua',
-                headerSubtitle: 'Iniciativas y soluciones para el estado',
+                pageTitle: 'Norteva | IA Local para Chihuahua',
+                headerTitle: 'Norteva',
+                headerSubtitle: 'IA local para Chihuahua',
                 searchPlaceholder: 'Buscar proyecto o zona...',
                 aiProjects: '20 proyectos',
                 itProjects: '10 servicios',
@@ -536,7 +541,7 @@
                 technologies: 'Tecnologías',
                 noResults: 'No se encontraron proyectos',
                 noResultsDescription: 'Prueba con otros términos como “maquila”, “WhatsApp” o “Cuauhtémoc”.',
-                footerCopyright: '© 2026 Catálogo de Proyectos de IA Local - Chihuahua.',
+                footerCopyright: '© 2026 Norteva | IA Local para Chihuahua.',
                 footerDescription: 'Una selección de iniciativas para el desarrollo industrial, agrícola, comercial y social del estado.',
                 themeToLight: 'Cambiar a modo claro',
                 themeToDark: 'Cambiar a modo oscuro',
@@ -554,9 +559,9 @@
                 ]
             },
             en: {
-                pageTitle: 'Local AI Projects Catalog - Chihuahua',
-                headerTitle: 'Local AI Catalog - Chihuahua',
-                headerSubtitle: 'Initiatives and solutions for the state',
+                pageTitle: 'Norteva | Local AI for Chihuahua',
+                headerTitle: 'Norteva',
+                headerSubtitle: 'Local AI for Chihuahua',
                 searchPlaceholder: 'Search project or location...',
                 aiProjects: '20 projects',
                 itProjects: '10 services',
@@ -573,7 +578,7 @@
                 technologies: 'Technologies',
                 noResults: 'No projects found',
                 noResultsDescription: 'Try terms such as “manufacturing”, “WhatsApp”, or “Cuauhtémoc”.',
-                footerCopyright: '© 2026 Local AI Projects Catalog - Chihuahua.',
+                footerCopyright: '© 2026 Norteva | Local AI for Chihuahua.',
                 footerDescription: 'A selection of initiatives for the state’s industrial, agricultural, commercial, and social development.',
                 themeToLight: 'Switch to light mode',
                 themeToDark: 'Switch to dark mode',
