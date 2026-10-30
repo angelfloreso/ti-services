@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Norteva reúne soluciones de IA y servicios de tecnología para Chihuahua.">
     <script>
         if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
             document.documentElement.classList.add('dark');
@@ -41,17 +42,37 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600&family=IBM+Plex+Sans:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
+            /* Hallmark · modern-minimal · banner landing · Norteva catalog */
+            /* Critique · the original page had the right material, but the catalog entered before the product had a clear first action. */
+            :root {
+                --norteva-ink: #e8f1f0;
+                --norteva-muted: #9fb5b4;
+                --norteva-paper: #071514;
+                --norteva-panel: #102321;
+                --norteva-rule: #29413e;
+                --norteva-green: #63d7aa;
+                --norteva-blue: #8db9ff;
+                --norteva-radius: 16px;
+                --norteva-shadow: 0 24px 70px rgba(2, 6, 23, 0.32);
+            }
+            html,
+            body { overflow-x: clip; }
+            h1,
+            h2,
+            h3,
+            h4 { text-wrap: balance; }
         body {
-            font-family: 'Inter', sans-serif;
+                font-family: Inter, sans-serif;
             background-image: radial-gradient(circle at 85% 0%, rgba(34, 197, 94, 0.12), transparent 28rem), radial-gradient(circle at 8% 42%, rgba(37, 99, 235, 0.08), transparent 24rem), linear-gradient(135deg, #020617 0%, #0f172a 55%, #111827 100%);
             transition: background-color 200ms ease, color 200ms ease;
         }
         .hero-banner {
             background: radial-gradient(circle at 88% 30%, rgba(45, 212, 191, 0.34), transparent 14rem), linear-gradient(115deg, #064e3b 0%, #0f766e 42%, #2563eb 100%);
-            box-shadow: 0 24px 70px rgba(2, 6, 23, 0.32);
+            box-shadow: var(--norteva-shadow);
         }
         .hero-grid {
             background-image: linear-gradient(rgba(255,255,255,.09) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.09) 1px, transparent 1px);
@@ -81,6 +102,81 @@
         .project-card {
             animation: norteva-rise 500ms ease both;
         }
+        .hero-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            min-height: 3rem;
+            padding: 0.75rem 1rem;
+            border: 1px solid rgba(255,255,255,.4);
+            border-radius: 0.75rem;
+            background: #e8f1f0;
+            color: #0b2d26;
+            font-size: 0.875rem;
+            font-weight: 700;
+            transition: transform 220ms ease, background-color 220ms ease;
+        }
+        .hero-action:hover { transform: translateY(-2px); background: #ffffff; }
+        .hero-action:active,
+        .catalog-tab:active,
+        .language-button:active,
+        .theme-button:active { transform: translateY(1px); }
+        button:disabled,
+        a[aria-disabled="true"] { cursor: not-allowed; opacity: .55; }
+        .hero-action:focus-visible,
+        .catalog-tab:focus-visible,
+        .language-button:focus-visible,
+        .theme-button:focus-visible,
+        input:focus-visible {
+            outline: 3px solid var(--norteva-green);
+            outline-offset: 3px;
+        }
+        .hero-map {
+            position: relative;
+            min-height: 19rem;
+            border: 1px solid rgba(255,255,255,.2);
+            border-radius: var(--norteva-radius);
+            background: rgba(3, 35, 29, .42);
+            padding: 1.25rem;
+        }
+        .hero-map::before {
+            content: '';
+            position: absolute;
+            inset: 1.5rem;
+            border: 1px solid rgba(167,243,208,.26);
+            border-radius: 50% 46% 52% 43%;
+            transform: rotate(-12deg);
+        }
+        .hero-map::after {
+            content: '';
+            position: absolute;
+            inset: 3.25rem 2rem;
+            border: 1px dashed rgba(141,185,255,.38);
+            border-radius: 44% 56% 48% 52%;
+            transform: rotate(18deg);
+        }
+        .hero-map-content { position: relative; z-index: 1; }
+        .hero-map-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,.14);
+            padding: 0.8rem 0;
+            color: rgba(255,255,255,.88);
+            font-size: 0.875rem;
+        }
+        .hero-map-row:last-child { border-bottom: 0; }
+        .hero-map-count { color: #a7f3d0; font-weight: 700; }
+        .catalog-intro {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 1.5rem;
+            border-bottom: 1px solid var(--norteva-rule);
+            padding-bottom: 1.5rem;
+        }
+        .catalog-intro h2 { max-width: 24ch; }
         .project-card::before {
             content: '';
             position: absolute;
@@ -111,6 +207,10 @@
             background-image: radial-gradient(circle at 85% 0%, rgba(16, 185, 129, 0.16), transparent 28rem), radial-gradient(circle at 8% 42%, rgba(37, 99, 235, 0.08), transparent 24rem), linear-gradient(135deg, #f8fafc 0%, #eef6f4 55%, #eff6ff 100%);
             color: #0f172a;
         }
+        html:not(.dark) .hero-action { background: #0f766e; color: #ffffff; }
+        html:not(.dark) .hero-action:hover { background: #115e59; }
+        html:not(.dark) .hero-map { background: rgba(6, 78, 59, .66); }
+        html:not(.dark) .catalog-intro { border-color: #b7cfc9; }
         html:not(.dark) .border-slate-800,
         html:not(.dark) .border-slate-800\/80 { border-color: #d7e1e8; }
         html:not(.dark) .bg-slate-900,
@@ -131,9 +231,7 @@
             color: #115e59;
         }
         html:not(.dark) .hero-banner .text-white { color: #ffffff; }
-        html:not(.dark) header h1 {
-            background-image: linear-gradient(to right, #0f766e, #2563eb);
-        }
+        html:not(.dark) header h1 { color: #0f766e; }
         html:not(.dark) .language-button[aria-pressed="true"] { color: #047857; }
         html:not(.dark) .catalog-tab[aria-selected="true"] {
             background-color: #d1fae5;
@@ -159,34 +257,297 @@
         ::-webkit-scrollbar-thumb:hover {
             background: rgba(71, 85, 105, 1);
         }
+        /* Cobalt theme: cool paper, graphite surfaces, one electric signal. */
+        .cobalt-page {
+            --cobalt-paper: oklch(98.6% 0.005 250);
+            --cobalt-paper-2: oklch(96.2% 0.008 252);
+            --cobalt-paper-3: oklch(93% 0.011 252);
+            --cobalt-ink: oklch(21% 0.028 262);
+            --cobalt-ink-2: oklch(36% 0.022 260);
+            --cobalt-muted: oklch(50% 0.018 258);
+            --cobalt-rule: oklch(90% 0.009 252);
+            --cobalt-rule-2: oklch(83% 0.012 252);
+            --cobalt-graphite: oklch(21% 0.024 262);
+            --cobalt-graphite-2: oklch(26.5% 0.026 262);
+            --cobalt-graphite-ink: oklch(93% 0.010 250);
+            --cobalt-graphite-muted: oklch(69% 0.022 256);
+            --cobalt-accent: oklch(52% 0.19 258);
+            --cobalt-accent-2: oklch(76% 0.13 254);
+            --cobalt-accent-wash: oklch(95% 0.028 256);
+            --cobalt-mono: "JetBrains Mono", ui-monospace, monospace;
+            --cobalt-display: "Familjen Grotesk", system-ui, sans-serif;
+            --cobalt-body: "IBM Plex Sans", system-ui, sans-serif;
+            background: var(--cobalt-paper) !important;
+            color: var(--cobalt-ink) !important;
+            font-family: var(--cobalt-body) !important;
+        }
+        .cobalt-page header {
+            border-color: var(--cobalt-rule) !important;
+            background: var(--cobalt-paper) !important;
+            backdrop-filter: none;
+        }
+        .cobalt-page header h1,
+        .cobalt-page h2,
+        .cobalt-page h3,
+        .cobalt-page h4 {
+            color: var(--cobalt-ink) !important;
+            font-family: var(--cobalt-display);
+            font-weight: 600;
+            letter-spacing: -0.028em;
+        }
+        .cobalt-page header h1 { background: none !important; }
+        .cobalt-page header p,
+        .cobalt-page .text-slate-400,
+        .cobalt-page .text-slate-500,
+        .cobalt-page .text-slate-600 { color: var(--cobalt-muted) !important; }
+        .cobalt-page .bg-slate-900,
+        .cobalt-page .bg-slate-900\/50,
+        .cobalt-page .bg-slate-900\/75,
+        .cobalt-page .bg-slate-900\/40 { background: var(--cobalt-paper-2) !important; }
+        .cobalt-page .border-slate-800,
+        .cobalt-page .border-slate-800\/80,
+        .cobalt-page .border-slate-700\/50 { border-color: var(--cobalt-rule) !important; }
+        .cobalt-page .hero-banner {
+            border: 1px solid var(--cobalt-rule-2) !important;
+            border-radius: 8px;
+            background: var(--cobalt-paper) !important;
+            box-shadow: none;
+        }
+        .cobalt-page .hero-banner::before {
+            content: "..:::::::       ..::::::     .::       .::     :::..       .::\A  .:::::::.    .::::::::.    .::       .::     .:::::.      .::\A .::      .::  .::       .::  .::       .::   .::    .::     .::\A .::           .::       .::  .::       .::  .::      .::    .::\A .::           .::::::::::.   .::       .::  .::::::::::.    .::\A .::           .::            .::       .::  .::      .::    .::\A  .::      .::  .::           .::       .::  .::       .::  .::\A   .::::::::    .::            .::::::::.   .::        .::.::";
+            position: absolute;
+            right: 3%;
+            top: 10%;
+            z-index: 0;
+            color: var(--cobalt-accent-2);
+            font: 500 10px/1.6 var(--cobalt-mono);
+            opacity: .48;
+            white-space: pre;
+            pointer-events: none;
+        }
+        .cobalt-page .hero-grid,
+        .cobalt-page .hero-network { display: none; }
+        .cobalt-page .hero-banner .text-white,
+        .cobalt-page .hero-banner .text-emerald-50,
+        .cobalt-page .hero-banner .text-white\/70 { color: var(--cobalt-ink) !important; }
+        .cobalt-page .hero-banner .text-emerald-50\/90 { color: var(--cobalt-ink-2) !important; }
+        .cobalt-page #regionLabel {
+            border: 0;
+            border-left: 3px solid var(--cobalt-accent);
+            border-radius: 0;
+            background: transparent;
+            color: var(--cobalt-muted) !important;
+            padding-left: 10px;
+        }
+        .cobalt-page .hero-action {
+            border: 1px solid var(--cobalt-accent-edge, var(--cobalt-accent));
+            border-radius: 6px;
+            background: var(--cobalt-accent) !important;
+            color: var(--cobalt-paper) !important;
+            box-shadow: 0 3px 0 0 var(--cobalt-accent-deep, oklch(43% 0.2 262));
+            font-family: var(--cobalt-display);
+        }
+        .cobalt-page .hero-action:hover { background: var(--cobalt-accent-deep, oklch(43% 0.2 262)) !important; }
+        .cobalt-page .hero-map {
+            border: 1px solid var(--cobalt-rule-2);
+            border-radius: 8px 8px 8px 16px;
+            background: var(--cobalt-graphite) !important;
+            box-shadow: none;
+        }
+        .cobalt-page .hero-map::before,
+        .cobalt-page .hero-map::after { border-color: var(--cobalt-graphite-2); }
+        .cobalt-page .hero-map-row { border-color: var(--cobalt-graphite-2); color: var(--cobalt-graphite-ink); }
+        .cobalt-page .hero-map-count { color: var(--cobalt-accent-2); font-family: var(--cobalt-mono); }
+        .cobalt-page .hero-map-content > div:first-child { color: var(--cobalt-graphite-muted) !important; }
+        .cobalt-page header .text-brand-500 { color: var(--cobalt-accent) !important; }
+        .cobalt-page .catalog-tab {
+            border-color: var(--cobalt-rule-2) !important;
+            border-radius: 6px;
+            background: var(--cobalt-paper-2) !important;
+            color: var(--cobalt-ink-2) !important;
+            font-family: var(--cobalt-display);
+            box-shadow: 0 2px 0 0 var(--cobalt-rule-2);
+        }
+        .cobalt-page .catalog-tab[aria-selected="true"] {
+            border-color: var(--cobalt-accent) !important;
+            background: var(--cobalt-accent) !important;
+            color: var(--cobalt-paper) !important;
+            box-shadow: 0 3px 0 0 oklch(43% 0.2 262);
+        }
+        .cobalt-page #searchInput {
+            border-color: var(--cobalt-rule-2) !important;
+            border-radius: 6px;
+            background: var(--cobalt-paper-2) !important;
+            color: var(--cobalt-ink) !important;
+            font-family: var(--cobalt-body);
+        }
+        .cobalt-page #projectCount,
+        .cobalt-page .language-button,
+        .cobalt-page .theme-button {
+            border-color: var(--cobalt-rule-2) !important;
+            border-radius: 6px;
+            background: var(--cobalt-paper-2) !important;
+            color: var(--cobalt-ink-2) !important;
+        }
+        .cobalt-page .language-button[aria-pressed="true"] {
+            background: var(--cobalt-accent-wash) !important;
+            color: var(--cobalt-accent) !important;
+        }
+        .cobalt-page .project-card {
+            border-color: var(--cobalt-rule) !important;
+            border-radius: 8px 8px 8px 16px;
+            background: var(--cobalt-paper) !important;
+            box-shadow: 0 1px 2px oklch(21% 0.028 262 / 0.06);
+        }
+        .cobalt-page .project-card::before {
+            width: 2px;
+            background: var(--cobalt-accent);
+        }
+        .cobalt-page .project-card .bg-slate-800 {
+            background: var(--cobalt-accent-wash) !important;
+            color: var(--cobalt-accent) !important;
+            border-color: var(--cobalt-rule-2) !important;
+        }
+        .cobalt-page .project-card p,
+        .cobalt-page .project-card span { color: var(--cobalt-ink-2) !important; }
+        .cobalt-page .project-card strong { color: var(--cobalt-ink) !important; }
+        .cobalt-page .project-card i,
+        .cobalt-page .text-brand-500 { color: var(--cobalt-accent) !important; }
+        .cobalt-page #tiersContainer section > div:first-child > div:first-child {
+            border-color: var(--cobalt-rule-2) !important;
+            background: var(--cobalt-paper-2) !important;
+        }
+        .cobalt-page #tiersContainer section > div:first-child > div:first-child i { color: var(--cobalt-accent) !important; }
+        .cobalt-page #tiersContainer section > div:first-child > span {
+            border-color: var(--cobalt-rule-2) !important;
+            background: var(--cobalt-accent-wash) !important;
+            color: var(--cobalt-accent) !important;
+        }
+        .cobalt-page footer { border-color: var(--cobalt-rule) !important; background: var(--cobalt-paper-2) !important; }
+        .cobalt-page footer .text-slate-500,
+        .cobalt-page footer .text-slate-600 { color: var(--cobalt-muted) !important; }
+        .cobalt-page .hero-action:focus-visible,
+        .cobalt-page .catalog-tab:focus-visible,
+        .cobalt-page .language-button:focus-visible,
+        .cobalt-page .theme-button:focus-visible,
+        .cobalt-page input:focus-visible { outline-color: var(--cobalt-accent); }
+        .cobalt-nav { position: relative; min-height: 3.5rem; }
+        .cobalt-wordmark {
+            color: var(--cobalt-ink) !important;
+            font: 600 1.3rem/1 var(--cobalt-display);
+            letter-spacing: -0.028em;
+            text-decoration: none;
+        }
+        .cobalt-wordmark-glyph { color: var(--cobalt-accent); font: 500 1.8rem/0.8 var(--cobalt-mono); }
+        .cobalt-jump,
+        .cobalt-key {
+            align-items: center;
+            border: 1px solid var(--cobalt-rule-2);
+            border-radius: 6px;
+            background: var(--cobalt-paper-2);
+            color: var(--cobalt-ink-2);
+            display: inline-flex;
+            font: 500 .85rem/1 var(--cobalt-display);
+            gap: .45rem;
+            min-height: 2.25rem;
+            padding: .6rem .8rem;
+            text-decoration: none;
+            box-shadow: 0 2px 0 0 var(--cobalt-rule-2);
+            transition: transform 120ms ease, background-color 120ms ease;
+        }
+        .cobalt-jump:hover,
+        .cobalt-key:hover { transform: translateY(-1px); background: var(--cobalt-accent-wash); }
+        .cobalt-jump:active,
+        .cobalt-key:active { transform: translateY(2px); box-shadow: none; }
+        .cobalt-jump kbd { border: 1px solid var(--cobalt-rule-2); border-radius: 3px; padding: .18rem .3rem; font: 400 .7rem/1 var(--cobalt-mono); }
+        .cobalt-key-sm { background: var(--cobalt-accent); border-color: var(--cobalt-accent); color: var(--cobalt-paper); box-shadow: 0 3px 0 0 oklch(43% 0.2 262); }
+        .cobalt-key-sm:hover { background: oklch(43% 0.2 262); color: var(--cobalt-paper); }
+        .cobalt-menu {
+            border: 1px solid var(--cobalt-rule-2);
+            border-radius: 6px;
+            background: var(--cobalt-paper);
+            box-shadow: 0 8px 18px oklch(21% 0.028 262 / .14);
+            color: var(--cobalt-ink);
+            display: grid;
+            gap: .25rem;
+            margin: 3.1rem 5.5rem 0 auto;
+            padding: .5rem;
+            width: 15rem;
+        }
+        .cobalt-menu a { color: var(--cobalt-ink-2); font: 500 .85rem/1.2 var(--cobalt-body); padding: .55rem .65rem; text-decoration: none; }
+        .cobalt-menu a:hover { background: var(--cobalt-accent-wash); color: var(--cobalt-accent); }
+        .cobalt-command {
+            align-items: center;
+            background: var(--cobalt-graphite);
+            border-radius: 6px;
+            color: var(--cobalt-graphite-ink);
+            display: flex;
+            font: 400 .75rem/1.3 var(--cobalt-mono);
+            justify-content: space-between;
+            margin-top: 1rem;
+            max-width: 32rem;
+            padding: .8rem 1rem;
+        }
+        .cobalt-command code { overflow-wrap: anywhere; }
+        .cobalt-command code span { color: var(--cobalt-accent-2); }
+        .cobalt-command-status { color: var(--cobalt-accent-2); margin-left: 1rem; }
+        .cobalt-legend {
+            border-bottom: 1px solid var(--cobalt-rule);
+            color: var(--cobalt-muted);
+            display: flex;
+            flex-wrap: wrap;
+            font: 400 .76rem/1.4 var(--cobalt-body);
+            gap: 1.5rem;
+            padding: .9rem 0 1.1rem;
+        }
+        .cobalt-legend code { color: var(--cobalt-accent); font-family: var(--cobalt-mono); margin-right: .35rem; }
+        .cobalt-page #catalog { border-bottom: 0; padding-top: 1.25rem; }
+        .cobalt-page #tiersContainer { border-top: 1px solid var(--cobalt-rule); padding-top: 3rem; }
+        .cobalt-page #tiersContainer section { padding-bottom: 2.5rem; }
+        .cobalt-page #tiersContainer section > div:first-child { align-items: center; min-height: 3.5rem; }
+        @media (max-width: 60rem) {
+            .cobalt-nav-actions { min-width: 0; }
+            .cobalt-wordmark { flex-shrink: 0; }
+            .cobalt-menu { margin-right: 0; }
+        }
+        @media (max-width: 60rem) {
+            .cobalt-page .hero-banner::before { right: -14rem; opacity: .25; }
+        }
+        html.dark .cobalt-page {
+            --cobalt-paper: oklch(16% 0.018 262);
+            --cobalt-paper-2: oklch(20% 0.022 262);
+            --cobalt-paper-3: oklch(24% 0.024 262);
+            --cobalt-ink: oklch(93% 0.010 250);
+            --cobalt-ink-2: oklch(76% 0.018 256);
+            --cobalt-muted: oklch(68% 0.018 256);
+            --cobalt-rule: oklch(30% 0.024 262);
+            --cobalt-rule-2: oklch(39% 0.03 260);
+        }
+        html.dark .cobalt-page .hero-banner { background: var(--cobalt-paper) !important; }
+        html.dark .cobalt-page .hero-action { color: var(--cobalt-ink); }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col selection:bg-brand-500 selection:text-slate-950">
+<body id="top" class="cobalt-page bg-slate-950 text-slate-100 min-h-screen flex flex-col selection:bg-brand-500 selection:text-slate-950">
 
     <!-- Header & Hero Section -->
     <header class="border-b border-slate-800 bg-slate-900/50 backdrop-blur-md sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="flex items-center gap-3">
-                <div class="p-2 bg-brand-500/10 border border-brand-500/20 rounded-xl text-brand-500" aria-hidden="true">
-                    <i data-lucide="compass" class="w-7 h-7"></i>
-                </div>
-                <div>
-                    <h1 class="text-xl font-bold bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
-                        Norteva
-                    </h1>
-                        <p class="text-xs text-slate-400">IA local para Chihuahua</p>
-                </div>
-            </div>
-
-            <!-- Global Search & Stats -->
-            <div class="flex items-center gap-3 w-full md:w-auto">
-                <div class="relative w-full md:w-64">
-                    <i data-lucide="search" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
-                    <input type="text" id="searchInput" placeholder="Buscar proyecto o zona..." aria-label="Buscar proyecto o zona"
-                           class="w-full pl-9 pr-4 py-2 bg-slate-900 border border-slate-800 rounded-lg text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-brand-500 transition-colors">
+        <div class="cobalt-nav max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
+            <a class="cobalt-wordmark flex items-center gap-2" href="#top" aria-label="Norteva, volver al inicio">
+                <span class="cobalt-wordmark-glyph" aria-hidden="true">┊</span>
+                <span>Norteva</span>
+            </a>
+            <div class="cobalt-nav-actions flex items-center gap-2">
+                <button class="cobalt-jump" type="button" popovertarget="sectionMenu" aria-label="Ir a una sección">
+                    <i data-lucide="search" class="h-4 w-4"></i>
+                    <span class="hidden sm:inline">Ir a sección</span>
+                    <kbd class="hidden md:inline">⌘</kbd><kbd class="hidden md:inline">K</kbd>
+                </button>
+                <div class="relative hidden lg:block w-56">
+                    <i data-lucide="filter" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                    <input type="text" id="searchInput" placeholder="Filtrar catálogo..." aria-label="Buscar proyecto o zona"
+                           class="w-full pl-9 pr-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-brand-500 transition-colors">
                 </div>
                 <div class="hidden sm:flex items-center gap-2 px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-xs font-semibold text-slate-300 whitespace-nowrap" id="projectCount">
-                    <i data-lucide="layers" class="w-4 h-4 text-brand-500"></i>
                     <span>20 Proyectos</span>
                 </div>
                 <div class="flex items-center rounded-lg border border-slate-800 bg-slate-900 p-1 text-xs font-semibold" aria-label="Language selector">
@@ -196,6 +557,12 @@
                 <button id="themeToggle" class="theme-button flex h-9 w-9 items-center justify-center rounded-lg border border-slate-800 bg-slate-900 text-slate-400 transition-colors hover:text-amber-400" aria-label="Cambiar a modo claro" aria-pressed="true" title="Cambiar tema">
                     <i data-lucide="sun" class="w-4 h-4"></i>
                 </button>
+                <a class="cobalt-key cobalt-key-sm hidden sm:inline-flex" href="#catalog">Ver catálogo</a>
+            </div>
+            <div id="sectionMenu" popover class="cobalt-menu" aria-label="Secciones">
+                <a href="#catalog">El catálogo</a>
+                <a href="#tiersContainer">Soluciones y servicios</a>
+                <a href="#footerCopyright">Información de Norteva</a>
             </div>
         </div>
     </header>
@@ -204,31 +571,53 @@
     <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
 
         <!-- Intro Banner -->
-        <section class="hero-banner border border-emerald-300/20 rounded-3xl p-6 md:p-10 relative overflow-hidden shadow-2xl">
+        <section class="hero-banner border border-emerald-300/20 rounded-3xl p-6 md:p-10 relative overflow-hidden">
             <div class="hero-grid absolute inset-y-0 right-0 w-2/3 opacity-60 pointer-events-none"></div>
             <div class="hero-network hero-orbit absolute -right-16 -top-10 w-[28rem] h-[28rem] opacity-70 pointer-events-none"></div>
-            <div class="absolute right-10 bottom-8 hidden md:flex h-28 w-28 items-center justify-center rounded-full border border-white/25 bg-white/10 backdrop-blur-sm pointer-events-none">
-                <i data-lucide="compass" class="w-12 h-12 text-emerald-100"></i>
-            </div>
-            <div class="max-w-3xl space-y-4 relative z-10">
-                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-white/15 text-emerald-50 border border-white/20" id="regionLabel">
-                    <i data-lucide="map-pin" class="w-3.5 h-3.5"></i> Estado de Chihuahua
-                </span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight max-w-2xl" id="heroTitle">
-                    Catálogo Interactivo de Soluciones de Inteligencia Artificial
-                </h2>
-                <p class="text-emerald-50/85 text-sm md:text-base leading-relaxed max-w-2xl" id="heroDescription">
-                    Explora iniciativas de inteligencia artificial creadas para responder a necesidades reales de comunidades, empresas y organizaciones de Chihuahua.
-                </p>
-                <div class="flex flex-wrap gap-2 pt-2 text-xs font-semibold text-white/85">
-                    <span class="rounded-full bg-emerald-950/25 px-3 py-1.5" id="catalogSummaryCount">20 proyectos</span>
-                    <span class="rounded-full bg-blue-950/25 px-3 py-1.5" id="catalogSummaryAreas">4 áreas de impacto</span>
-                    <span class="rounded-full bg-amber-950/25 px-3 py-1.5" id="catalogSummaryFocus">Enfoque local</span>
+            <div class="relative z-10 grid items-center gap-8 lg:grid-cols-[1.05fr_.95fr]">
+                <div class="space-y-5">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-white/15 text-emerald-50 border border-white/20" id="regionLabel">
+                        <i data-lucide="map-pin" class="w-3.5 h-3.5"></i> Estado de Chihuahua
+                    </span>
+                    <h2 class="max-w-xl text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-6xl" id="heroTitle">
+                        Inteligencia local para decisiones reales.
+                    </h2>
+                    <p class="max-w-xl text-sm leading-relaxed text-emerald-50/90 md:text-base" id="heroDescription">
+                        Explora iniciativas y servicios digitales creados para comunidades, empresas y organizaciones de Chihuahua.
+                    </p>
+                    <div class="flex flex-wrap items-center gap-3 pt-1">
+                        <a class="hero-action" href="#catalog" id="heroAction">
+                            Explorar el catálogo <i data-lucide="arrow-down-right" class="h-4 w-4"></i>
+                        </a>
+                        <span class="text-xs text-white/70" id="heroNote">20 proyectos, 10 servicios de TI</span>
+                    </div>
+                    <div class="cobalt-command" aria-label="Ejemplo de consulta del catálogo">
+                        <code><span aria-hidden="true">$</span> Norteva --buscar "automatización local"</code>
+                        <span class="cobalt-command-status">ready</span>
+                    </div>
+                </div>
+                <div class="hero-map hidden lg:block">
+                    <div class="hero-map-content">
+                        <div class="mb-4 flex items-center justify-between text-xs text-emerald-100/80">
+                            <span id="heroVisualTitle">Norteva / mapa de soluciones</span>
+                            <i data-lucide="compass" class="h-5 w-5 text-emerald-200"></i>
+                        </div>
+                        <div class="hero-map-row"><span id="heroVisualOne">Trabajo y productividad</span><span class="hero-map-count">04</span></div>
+                        <div class="hero-map-row"><span id="heroVisualTwo">Agro y territorio</span><span class="hero-map-count">04</span></div>
+                        <div class="hero-map-row"><span id="heroVisualThree">Comercio y servicios</span><span class="hero-map-count">06</span></div>
+                        <div class="hero-map-row"><span id="heroVisualFour">Industria y gobierno</span><span class="hero-map-count">06</span></div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <nav class="flex flex-wrap gap-2 border-b border-slate-800 pb-3" aria-label="Catálogo">
+        <div class="cobalt-legend" aria-label="Cómo leer el catálogo">
+            <span><code>IA</code> Soluciones de inteligencia artificial</span>
+            <span><code>TI</code> Servicios de tecnología</span>
+            <span><code>↳</code> Aplicación local</span>
+        </div>
+
+        <nav id="catalog" class="flex flex-wrap gap-2 border-b border-slate-800 pb-3" aria-label="Catálogo">
             <button class="catalog-tab inline-flex items-center gap-2 rounded-lg border border-emerald-400/40 bg-emerald-500/15 px-4 py-2.5 text-sm font-semibold text-emerald-300 transition-colors" data-tab="ai" aria-selected="true">
                 <i data-lucide="sparkles" class="w-4 h-4"></i>
                 <span data-tab-label="ai">Soluciones de IA</span>
@@ -584,10 +973,17 @@
                 tabs: { ai: 'Soluciones de IA', it: 'Servicios de TI' },
                 summary: { ai: ['20 proyectos', '4 áreas de impacto', 'Enfoque local'], it: ['10 servicios', '4 áreas de servicio', 'Capacidades digitales'] },
                 region: 'Estado de Chihuahua',
-                heroTitle: 'Catálogo de soluciones de inteligencia artificial',
-                heroDescription: 'Explora iniciativas de inteligencia artificial creadas para responder a necesidades reales de comunidades, empresas y organizaciones de Chihuahua.',
-                itHeroTitle: 'Servicios de tecnología para organizaciones',
-                itHeroDescription: 'Conoce servicios especializados para crear, modernizar, proteger y operar soluciones digitales para empresas de Chihuahua.',
+                heroTitle: 'Inteligencia local para decisiones reales.',
+                heroDescription: 'Explora iniciativas y servicios digitales creados para comunidades, empresas y organizaciones de Chihuahua.',
+                itHeroTitle: 'Tecnología local para organizaciones.',
+                itHeroDescription: 'Encuentra servicios para crear, modernizar, proteger y operar soluciones digitales en Chihuahua.',
+                heroAction: 'Explorar el catálogo',
+                heroNote: '20 proyectos, 10 servicios de TI',
+                heroVisualTitle: 'Norteva / mapa de soluciones',
+                heroVisual: {
+                    ai: [['Trabajo y productividad', '04'], ['Agro y territorio', '04'], ['Comercio y servicios', '06'], ['Industria y gobierno', '06']],
+                    it: [['Desarrollo de software', '03'], ['Cloud y DevOps', '03'], ['Ciberseguridad y calidad', '02'], ['Soporte e integraciones', '02']]
+                },
                 audience: 'A quién sirve',
                 locations: 'Dónde se aplica',
                 useCases: 'Casos de uso',
@@ -621,10 +1017,17 @@
                 tabs: { ai: 'AI Solutions', it: 'IT Services' },
                 summary: { ai: ['20 projects', '4 impact areas', 'Local focus'], it: ['10 services', '4 service areas', 'Digital capabilities'] },
                 region: 'State of Chihuahua',
-                heroTitle: 'Artificial intelligence solutions catalog',
-                heroDescription: 'Explore artificial intelligence initiatives created to address real needs across Chihuahua communities, businesses, and organizations.',
-                itHeroTitle: 'Technology services for organizations',
-                itHeroDescription: 'Explore specialized services to build, modernize, protect, and operate digital solutions for Chihuahua businesses.',
+                heroTitle: 'Local intelligence for real decisions.',
+                heroDescription: 'Explore digital initiatives and services created for Chihuahua communities, businesses, and organizations.',
+                itHeroTitle: 'Local technology for organizations.',
+                itHeroDescription: 'Find services to build, modernize, protect, and operate digital solutions across Chihuahua.',
+                heroAction: 'Explore the catalog',
+                heroNote: '20 projects, 10 IT services',
+                heroVisualTitle: 'Norteva / solutions map',
+                heroVisual: {
+                    ai: [['Work and productivity', '04'], ['Agriculture and territory', '04'], ['Commerce and services', '06'], ['Industry and government', '06']],
+                    it: [['Custom software', '03'], ['Cloud and DevOps', '03'], ['Cybersecurity and quality', '02'], ['Support and integrations', '02']]
+                },
                 audience: 'Who it serves',
                 locations: 'Where it applies',
                 useCases: 'Use cases',
@@ -658,20 +1061,24 @@
             const copy = translations[language];
             document.documentElement.lang = language;
             document.title = copy.pageTitle;
-            document.querySelector('header h1').textContent = copy.headerTitle;
-            document.querySelector('header h1').nextElementSibling.textContent = copy.headerSubtitle;
+            document.querySelector('.cobalt-wordmark > span:last-child').textContent = copy.headerTitle;
             document.getElementById('searchInput').placeholder = copy.searchPlaceholder;
             document.getElementById('searchInput').setAttribute('aria-label', copy.searchPlaceholder);
             document.querySelector('#projectCount span').textContent = activeTab === 'ai' ? copy.aiProjects : copy.itProjects;
-            document.getElementById('catalogSummaryCount').textContent = copy.summary[activeTab][0];
-            document.getElementById('catalogSummaryAreas').textContent = copy.summary[activeTab][1];
-            document.getElementById('catalogSummaryFocus').textContent = copy.summary[activeTab][2];
             document.querySelectorAll('[data-tab-label]').forEach(label => {
                 label.textContent = copy.tabs[label.dataset.tabLabel];
             });
             document.getElementById('regionLabel').innerHTML = '<i data-lucide="map-pin" class="w-3.5 h-3.5"></i>' + copy.region;
             document.getElementById('heroTitle').textContent = activeTab === 'ai' ? copy.heroTitle : copy.itHeroTitle;
             document.getElementById('heroDescription').textContent = activeTab === 'ai' ? copy.heroDescription : copy.itHeroDescription;
+            document.getElementById('heroAction').firstChild.textContent = copy.heroAction + ' ';
+            document.getElementById('heroNote').textContent = copy.heroNote;
+            document.getElementById('heroVisualTitle').textContent = copy.heroVisualTitle;
+            ['heroVisualOne', 'heroVisualTwo', 'heroVisualThree', 'heroVisualFour'].forEach((id, index) => {
+                const row = copy.heroVisual[activeTab][index];
+                document.getElementById(id).textContent = row[0];
+                document.getElementById(id).nextElementSibling.textContent = row[1];
+            });
             document.getElementById('footerCopyright').textContent = copy.footerCopyright;
             document.getElementById('footerDescription').textContent = copy.footerDescription;
             updateThemeLabel(copy);

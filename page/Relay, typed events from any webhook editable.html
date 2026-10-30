@@ -1,0 +1,495 @@
+<!DOCTYPE html><html lang="en-GB" class="js has-field" style="--tick: 1;"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Norteva, typed events from any webhook</title>
+<meta name="description" content="Norteva is an API that turns any webhook into a typed event stream, retries failed deliveries and replays any event. Free up to 100,000 events a month.">
+<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="style.css">
+<script>document.documentElement.classList.add('js'); let tick = 0; addEventListener('resize', () => document.documentElement.style.setProperty('--tick', String(tick ^= 1)));</script><style type="text/css"></style>
+<script src="wire.js" defer=""></script>
+</head>
+<body id="top">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site">
+  <div class="container site__in">
+    <a class="wordmark" href="#top" aria-label="Norteva, back to the top"><span class="wordmark__glyph" aria-hidden="true">┊</span>Norteva</a>
+    <button class="jump" type="button" popovertarget="jump" aria-keyshortcuts="Meta+K Control+K" aria-label="Jump to a section">
+      <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+      <span class="jump__long">Jump to a section</span><span class="jump__short">Jump</span>
+      <span class="jump__keys" aria-hidden="true"><kbd>⌘</kbd><kbd>K</kbd></span>
+    </button>
+    <div class="jump__menu" id="jump" popover="" aria-label="Sections">
+      <a href="#stream">The console</a>
+      <a href="#does">What it does</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#start">Your handler</a>
+    </div>
+    <div class="site__controls">
+      <div class="language-switcher" role="group" aria-label="Language">
+        <button type="button" class="language-switcher__button is-active" data-language="es" aria-pressed="true">ES</button>
+        <button type="button" class="language-switcher__button" data-language="en" aria-pressed="false">EN</button>
+      </div>
+      <button class="theme-switcher" type="button" data-theme-toggle aria-pressed="false" aria-label="Activar modo nocturno" title="Activar modo nocturno">
+        <svg class="theme-switcher__moon" aria-hidden="true" viewBox="0 0 24 24"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3 6.7 6.7 0 0 0 21 12.8Z"></path></svg>
+        <svg class="theme-switcher__sun" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"></path></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" aria-labelledby="hero-head">
+    <canvas class="field" aria-hidden="true" width="2468" height="632" style="width: 2468px; height: 632px;"></canvas>
+    <div class="container hero__grid">
+      <div class="hero__text">
+        <h1 id="hero-head">Local intelligence for real decisions.</h1>
+        <p class="lead">Explore digital initiatives and services created for Chihuahua communities, businesses, and organizations.</p>
+        <div class="actions">
+          <a class="key key--primary hero-email" href="mailto:contacto@norteva.com.mx" aria-label="Enviar email a Norteva">Enviar Email</a>
+          <a class="key hero-whatsapp" href="https://api.whatsapp.com/send?text=Hola%20Norteva%2C%20quiero%20conocer%20sus%20soluciones." target="_blank" rel="noopener" aria-label="Enviar mensaje por WhatsApp a Norteva">Enviar WhatsApp</a>
+        </div>
+        <div class="curl" data-copy="contacto@norteva.com.mx">
+          <code class="curl__cmd"><span class="curl__p" aria-hidden="true">$</span>contacto@norteva.com.mx</code>
+          <button class="curl__copy" type="button" aria-label="Copy the curl command"><span class="curl__say" aria-live="polite">Copy</span></button>
+        </div>
+        <p class="hero__terms">Free up to 100,000 events a month.</p>
+      </div>
+    </div>
+    <div class="container legend-row">
+    <ul class="legend" aria-label="How to read the field">
+      <li><code class="legend__raw">{"…</code><span>Raw webhook</span></li>
+      <li><code class="legend__typed">invoice.paid</code><span>Typed event</span></li>
+      <li><code class="legend__gap">503 ┄┄</code><span>Retry, waiting</span></li>
+    </ul>
+    </div>
+  </section>
+
+  <section class="live" id="stream" aria-labelledby="s0">
+    <div class="container">
+      <div class="head">
+        <h2 id="s0"> Soluciones de inteligencia artificial</h2>
+        <p class="lead">Proyectos de IA para personas, empresas y organizaciones.</p>
+      </div>
+      <div class="project-grid" aria-label="Proyectos de trabajo y productividad">
+        <article class="project-card">
+          <div class="project-card__top"><span class="project-card__tag">Recursos Humanos / Maquila</span><span class="project-card__roi">Inmediato</span></div>
+          <h3>Reclutamiento Masivo y Filtrado por WhatsApp</h3>
+          <p>Bot conversacional inteligente en WhatsApp para pre-filtrar, evaluar candidatos operativos, validar referencias y coordinar turnos para plantas maquiladoras y comercio masivo.</p>
+          <dl><div><dt>Para</dt><dd>Agencias de RH y plantas maquiladoras.</dd></div><div><dt>Zona</dt><dd>Juárez / Chihuahua</dd></div></dl>
+        </article>
+        <article class="project-card">
+          <div class="project-card__top"><span class="project-card__tag">Gestión Energética</span><span class="project-card__roi">&lt; 30 días</span></div>
+          <h3>Auditor de Eficiencia Energética para Negocios</h3>
+          <p>Software de análisis conectado a medidores para reducir el alto costo de energía de aires acondicionados y recomendar pautas operativas óptimas en tarifas CFE.</p>
+          <dl><div><dt>Para</dt><dd>Hoteles, hospitales, plazas e industrias ligeras.</dd></div><div><dt>Zona</dt><dd>Estado de Chihuahua</dd></div></dl>
+        </article>
+        <article class="project-card">
+          <div class="project-card__top"><span class="project-card__tag">Bienes Raíces / PropTech</span><span class="project-card__roi">Inmediato</span></div>
+          <h3>Asistente Legal de Contratos Inmobiliarios</h3>
+          <p>Herramienta que redacta y revisa contratos de arrendamiento y compraventa adaptados al Código Civil del Estado de Chihuahua.</p>
+          <dl><div><dt>Para</dt><dd>Agencias inmobiliarias y desarrolladores.</dd></div><div><dt>Zona</dt><dd>Cantera / San Francisco / Juárez</dd></div></dl>
+        </article>
+        <article class="project-card">
+          <div class="project-card__top"><span class="project-card__tag">Ciberseguridad</span><span class="project-card__roi">Corto plazo</span></div>
+          <h3>Capacitación y Prevención de Extorsión por IA</h3>
+          <p>Simulador interactivo para entrenar al personal contra clonación de voz, fraudes telefónicos locales y phishing contextualizado.</p>
+          <dl><div><dt>Para</dt><dd>Empresas y departamentos de TI corporativos.</dd></div><div><dt>Zona</dt><dd>Chihuahua / Juárez / Delicias</dd></div></dl>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <div class="wire" aria-hidden="true"><canvas class="wire__row" width="2468" height="16" style="width: 2468px; height: 16px;"></canvas></div>
+
+  <section class="does" id="does" aria-labelledby="s1">
+    <div class="container">
+      <div class="head">
+        <h2 id="s1">Four jobs, one stream</h2>
+        <p class="lead">What Norteva does between your providers and your endpoint.</p>
+      </div>
+      <div class="switch" data-switch="">
+        <div class="tabs" role="tablist" aria-label="What Norteva does">
+          <button role="tab" id="t-typed" aria-controls="p-typed" aria-selected="true" tabindex="0"><span class="tabs__n" aria-hidden="true">1</span>Types</button>
+          <button role="tab" id="t-retry" aria-controls="p-retry" aria-selected="false" tabindex="-1"><span class="tabs__n" aria-hidden="true">2</span>Retries</button>
+          <button role="tab" id="t-replay" aria-controls="p-replay" aria-selected="false" tabindex="-1"><span class="tabs__n" aria-hidden="true">3</span>Replay</button>
+          <button role="tab" id="t-in" aria-controls="p-in" aria-selected="false" tabindex="-1"><span class="tabs__n" aria-hidden="true">4</span>Sources</button>
+        </div>
+
+        <div class="panel" role="tabpanel" id="p-typed" aria-labelledby="t-typed" tabindex="0">
+          <p class="panel__say">Norteva reads each payload and gives every field a type.</p>
+          <figure class="insp is-wired" data-insp="" data-on="amount">
+            <div class="insp__bar"><code>evt_1042</code><span>Received from billing.example.com</span><span class="insp__to">Inferred by Norteva</span></div>
+            <div class="insp__panes">
+              <div class="insp__pane">
+                <p class="insp__file"><code>evt_1042.json</code></p>
+<pre class="code code--insp"><code><span class="p">{</span>
+  <span class="ln" data-k="type"><span class="n">"type"</span><span class="p">:</span> <span class="s">"invoice.paid"</span><span class="p">,</span></span>
+  <span class="ln" data-k="id"><span class="n">"id"</span><span class="p">:</span> <span class="s">"evt_1042"</span><span class="p">,</span></span>
+  <span class="ln is-on" data-k="amount"><span class="n">"amount"</span><span class="p">:</span> <span class="s">4800</span><span class="p">,</span></span>
+  <span class="ln" data-k="currency"><span class="n">"currency"</span><span class="p">:</span> <span class="s">"GBP"</span><span class="p">,</span></span>
+  <span class="ln" data-k="paid_at"><span class="n">"paid_at"</span><span class="p">:</span> <span class="s">"2026-10-08T09:42:16Z"</span></span>
+<span class="p">}</span></code></pre>
+              </div>
+              <div class="insp__pane">
+                <p class="insp__file"><code>invoice-paid.ts</code></p>
+<pre class="code code--insp"><code><span class="c">// inferred from evt_1042</span>
+<span class="k">export type</span> <span class="t">InvoicePaid</span> = {
+  <span class="ln" data-k="type">type: <span class="s">"invoice.paid"</span>;</span>
+  <span class="ln" data-k="id">id: <span class="t">string</span>;</span>
+  <span class="ln is-on" data-k="amount">amount: <span class="t">number</span>;</span>
+  <span class="ln" data-k="currency">currency: <span class="s">"GBP"</span>;</span>
+  <span class="ln" data-k="paid_at">paid_at: <span class="t">string</span>;</span>
+};</code></pre>
+              </div>
+              <div class="insp__wires" aria-hidden="true"><i class="wire-c" data-k="type" style="--n: 0; --r: 10px;"><i class="wire-c__node" style="left: 342px; top: 166px; width: 5px; height: 5px;"></i><i class="wire-c__h" style="left: 344px; top: 168px; width: 283px; height: 1px;"></i><i class="wire-c__e wire-c__e--tr" style="left: 627px; top: 168px; width: 10px; height: 10px;"></i><i class="wire-c__e wire-c__e--bl" style="left: 636px; top: 178px; width: 11px; height: 11px;"></i><i class="wire-c__h" style="left: 647px; top: 188px; width: 110px; height: 1px;"></i><i class="wire-c__node" style="left: 755px; top: 186px; width: 5px; height: 5px;"></i></i><i class="wire-c" data-k="id" style="--n: 1; --r: 10px;"><i class="wire-c__node" style="left: 270px; top: 206px; width: 5px; height: 5px;"></i><i class="wire-c__h" style="left: 272px; top: 208px; width: 364px; height: 1px;"></i><i class="wire-c__e wire-c__e--tr" style="left: 636px; top: 208px; width: 10px; height: 10px;"></i><i class="wire-c__e wire-c__e--bl" style="left: 645px; top: 218px; width: 11px; height: 11px;"></i><i class="wire-c__h" style="left: 656px; top: 228px; width: 101px; height: 1px;"></i><i class="wire-c__node" style="left: 755px; top: 226px; width: 5px; height: 5px;"></i></i><i class="wire-c is-on" data-k="amount" style="--n: 2; --r: 10px;"><i class="wire-c__node" style="left: 246px; top: 246px; width: 5px; height: 5px;"></i><i class="wire-c__h" style="left: 248px; top: 248px; width: 398px; height: 1px;"></i><i class="wire-c__e wire-c__e--tr" style="left: 646px; top: 248px; width: 10px; height: 10px;"></i><i class="wire-c__e wire-c__e--bl" style="left: 655px; top: 258px; width: 11px; height: 11px;"></i><i class="wire-c__h" style="left: 666px; top: 268px; width: 91px; height: 1px;"></i><i class="wire-c__node" style="left: 755px; top: 266px; width: 5px; height: 5px;"></i></i><i class="wire-c" data-k="currency" style="--n: 3; --r: 10px;"><i class="wire-c__node" style="left: 282px; top: 286px; width: 5px; height: 5px;"></i><i class="wire-c__h" style="left: 284px; top: 288px; width: 372px; height: 1px;"></i><i class="wire-c__e wire-c__e--tr" style="left: 656px; top: 288px; width: 10px; height: 10px;"></i><i class="wire-c__e wire-c__e--bl" style="left: 665px; top: 298px; width: 11px; height: 11px;"></i><i class="wire-c__h" style="left: 676px; top: 308px; width: 81px; height: 1px;"></i><i class="wire-c__node" style="left: 755px; top: 306px; width: 5px; height: 5px;"></i></i><i class="wire-c" data-k="paid_at" style="--n: 4; --r: 10px;"><i class="wire-c__node" style="left: 462px; top: 326px; width: 5px; height: 5px;"></i><i class="wire-c__h" style="left: 464px; top: 328px; width: 201px; height: 1px;"></i><i class="wire-c__e wire-c__e--tr" style="left: 665px; top: 328px; width: 10px; height: 10px;"></i><i class="wire-c__e wire-c__e--bl" style="left: 674px; top: 338px; width: 11px; height: 11px;"></i><i class="wire-c__h" style="left: 685px; top: 348px; width: 72px; height: 1px;"></i><i class="wire-c__node" style="left: 755px; top: 346px; width: 5px; height: 5px;"></i></i></div>
+            </div>
+          </figure>
+        </div>
+
+        <div class="panel" role="tabpanel" id="p-retry" aria-labelledby="t-retry" tabindex="0" hidden="">
+          <p class="panel__say">When your endpoint is down, Norteva holds <code>evt_1042</code> and tries again: a 503, a timeout, then 200 OK.</p>
+          <figure class="tl" data-tl="">
+            <ol class="tl__at" aria-label="Delivery attempts of evt_1042 to example.com/hooks/billing, spaced by time">
+              <li class="tl__a tl__a--bad" style="--at: 0"><span class="tl__fig">503</span><span class="tl__what">Service Unavailable in 2.1 s</span><code>Attempt 1, 09:42:18</code></li>
+              <li class="tl__a tl__a--bad" style="--at: 0.3333"><span class="tl__fig">10.0 s</span><span class="tl__what">No answer, timed out</span><code>Attempt 2, 09:42:48</code></li>
+              <li class="tl__a tl__a--good" style="--at: 1"><span class="tl__fig">200</span><span class="tl__what">OK in 182 ms</span><code>Attempt 3, 09:43:48</code></li>
+            </ol>
+            <div class="tl__rule" aria-hidden="true"><i class="tl__ink"></i><i class="tl__span tl__span--bad" style="--at: 0; --dur: 0.0233"></i><i class="tl__span tl__span--bad" style="--at: 0.3333; --dur: 0.1111"></i><i class="tl__span tl__span--good" style="--at: 0.998; --dur: 0.002"></i><i class="tl__cursor"></i></div>
+            <div class="tl__dims" aria-hidden="true">
+              <span class="tl__dim" style="--from: 0; --to: 0.3333"><span><code>30 s</code> later</span></span>
+              <span class="tl__dim" style="--from: 0.3333; --to: 1"><span><code>60 s</code> later</span></span>
+            </div>
+          </figure>
+        </div>
+
+        <div class="panel" role="tabpanel" id="p-replay" aria-labelledby="t-replay" tabindex="0" hidden="">
+          <p class="panel__say">Send any past event to your endpoint again, straight from the stream.</p>
+          <div class="rp" data-replay="">
+            <canvas class="rp__field" aria-hidden="true"></canvas>
+            <div class="rp__in">
+              <div class="rp__head"><h3 class="rp__title">Replay</h3><code>invoice.paid</code><code class="rp__id">evt_1042</code></div>
+              <dl class="rp__fields">
+                <dt>Event</dt><dd><code>evt_1042, invoice.paid</code></dd>
+                <dt>Destination</dt><dd><code>https://example.com/hooks/billing</code></dd>
+              </dl>
+              <div class="rp__go">
+                <button class="key key--primary" type="button" data-replay-go=""><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-2.64-6.36"></path><path d="M21 3v6h-6"></path></svg>Replay event</button>
+                <span class="rp__hint">Sends the stored payload as it arrived</span>
+              </div>
+              <ol class="rp__log" aria-label="Recent replays" aria-live="polite">
+                <li class="rp__line"><code>09:58:14</code><span>Replayed <code>evt_1042</code></span><code class="ok">200 OK</code><code>164 ms</code></li>
+                <li class="rp__line"><code>09:31:02</code><span>Replayed <code>evt_0987</code></span><code class="ok">200 OK</code><code>201 ms</code></li>
+                <li class="rp__line"><code>08:12:40</code><span>Replayed <code>evt_0961</code></span><code class="ok">200 OK</code><code>176 ms</code></li>
+              </ol>
+              <div class="curl curl--dark" data-copy="curl --json @evt_1042.json https://example.com/hooks/billing">
+                <code class="curl__cmd"><span class="curl__p" aria-hidden="true">$</span>curl --json @evt_1042.json https://example.com/hooks/billing</code>
+                <button class="curl__copy" type="button" aria-label="Copy the same request as curl"><span class="curl__say" aria-live="polite">Copy</span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel" role="tabpanel" id="p-in" aria-labelledby="t-in" tabindex="0" hidden="">
+          <p class="panel__say">One address for each provider. Every webhook lands in one stream, whoever sent it.</p>
+          <div class="table-wrap" role="region" aria-label="Sources" tabindex="0">
+            <table class="src">
+              <thead><tr><th scope="col">Source</th><th scope="col">Posts to</th><th scope="col">Event types seen</th><th scope="col" class="r">Last event</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">shop.example.com</th><td><code>relay.example.com/in/shop</code></td><td><code>order.created</code> <code>order.shipped</code></td><td class="r"><code>09:42:31</code></td></tr>
+                <tr class="is-on"><th scope="row">billing.example.com</th><td><code>relay.example.com/in/billing</code></td><td><code>invoice.paid</code> <code>refund.issued</code></td><td class="r"><code>09:42:18</code></td></tr>
+                <tr><th scope="row">crm.example.com</th><td><code>relay.example.com/in/crm</code></td><td><code>customer.updated</code> <code>contact.merged</code></td><td class="r"><code>09:41:55</code></td></tr>
+                <tr><th scope="row">forms.example.com</th><td><code>relay.example.com/in/forms</code></td><td><code>form.submitted</code></td><td class="r"><code>09:39:40</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="src__out">All four deliver to <code>https://example.com/hooks</code></p>
+        </div>
+      </div>
+      <div class="project-category">
+        <div class="project-category__head">
+          <div>
+            <p class="project-category__eyebrow">Category 03</p>
+            <h3>Commerce and services</h3>
+          </div>
+          <span class="project-category__badge">Soluciones para la vida cotidiana</span>
+        </div>
+        <div class="project-grid" aria-label="Commerce and services projects">
+          <article class="project-card">
+            <div class="project-card__top"><span class="project-card__tag">Gastronomía &amp; Servicios</span><span class="project-card__roi">Inmediato</span></div>
+            <h3>Asistente de Pedidos por WhatsApp para Restaurantes</h3>
+            <p>Agente inteligente para tomar pedidos, gestionar reservaciones de grupos grandes y procesar pagos vía SPEI o MercadoPago.</p>
+            <dl><div><dt>Para</dt><dd>Restaurantes de ticket medio-alto.</dd></div><div><dt>Zona</dt><dd>Distrito 1 / Juárez / Centro</dd></div></dl>
+          </article>
+          <article class="project-card">
+            <div class="project-card__top"><span class="project-card__tag">Ganadería / Exportación</span><span class="project-card__roi">Medio plazo</span></div>
+            <h3>Trazabilidad y Certificación Ganadera de Exportación</h3>
+            <p>Sistema que automatiza el registro de aretes SINIIGA, vacunas y control de engorda mediante comandos de voz en campo.</p>
+            <dl><div><dt>Para</dt><dd>Asociaciones ganaderas y ranchos de exportación.</dd></div><div><dt>Zona</dt><dd>Soberanía Ganadera Estatal</dd></div></dl>
+          </article>
+          <article class="project-card">
+            <div class="project-card__top"><span class="project-card__tag">Retail / Supermercados</span><span class="project-card__roi">Trimestral</span></div>
+            <h3>Predicción de Inventario para Cadenas Locales</h3>
+            <p>Algoritmo de predicción de demanda que analiza pagos quincenales, clima y eventos festivos para reducir mermas de perecederos.</p>
+            <dl><div><dt>Para</dt><dd>Supermercados regionales y mayoristas.</dd></div><div><dt>Zona</dt><dd>Estado de Chihuahua</dd></div></dl>
+          </article>
+          <article class="project-card">
+            <div class="project-card__top"><span class="project-card__tag">Agroindustria Láctea</span><span class="project-card__roi">Medio plazo</span></div>
+            <h3>Optimizador de Rendimiento para Envasadoras Lácteas</h3>
+            <p>Analítica predictiva para optimizar maduración, temperatura y lotes según la estacionalidad regional.</p>
+            <dl><div><dt>Para</dt><dd>Queserías e industrias lácteas.</dd></div><div><dt>Zona</dt><dd>Cuauhtémoc / Campos Menonitas</dd></div></dl>
+          </article>
+          <article class="project-card">
+            <div class="project-card__top"><span class="project-card__tag">Marketing / Retail</span><span class="project-card__roi">Inmediato</span></div>
+            <h3>Fidelización vía Wallet Digital para Comercio</h3>
+            <p>Plataforma que reemplaza tarjetas físicas por pases dinámicos en Apple Wallet y Google Wallet con promociones automatizadas.</p>
+            <dl><div><dt>Para</dt><dd>Cafeterías, boutiques y restaurantes locales.</dd></div><div><dt>Zona</dt><dd>Chihuahua / Juárez</dd></div></dl>
+          </article>
+          <article class="project-card">
+            <div class="project-card__top"><span class="project-card__tag">Logística Urbana</span><span class="project-card__roi">Inmediato</span></div>
+            <h3>Gestor de Flotillas y Repartidores para Negocios Locales</h3>
+            <p>Sistema de optimización de rutas para refaccionarias, farmacias y ferreterías con reparto propio.</p>
+            <dl><div><dt>Para</dt><dd>Comercios con flotilla de entrega propia.</dd></div><div><dt>Zona</dt><dd>Chihuahua / Juárez</dd></div></dl>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="offer offer--projects" id="pricing" aria-labelledby="s5">
+    <div class="container">
+      <div class="project-category">
+        <div class="project-category__head">
+          <div>
+            <p class="project-category__eyebrow">Category 04</p>
+            <h2 id="s5">Industry, government, and tourism</h2>
+          </div>
+          <span class="project-category__badge">Infrastructure, services, and experiences</span>
+        </div>
+        <div class="project-grid" aria-label="Industry, government, and tourism projects">
+          <article class="project-card">
+            <div class="project-card__top"><span class="project-card__tag">Manufactura / Vision AI</span><span class="project-card__roi">Largo plazo</span></div>
+            <h3>Control de Calidad Visual con Edge AI en Línea</h3>
+            <p>Visión artificial integrada en la línea de ensamble con cámaras y GPUs locales para detectar defectos milimétricos en piezas moldeadas o arneses automotrices.</p>
+            <dl><div><dt>Para</dt><dd>Proveedores Tier 2 y Tier 3 de la industria maquiladora.</dd></div><div><dt>Zona</dt><dd>Parques industriales</dd></div></dl>
+          </article>
+          <article class="project-card">
+            <div class="project-card__top"><span class="project-card__tag">Minería / IoT</span><span class="project-card__roi">Largo plazo</span></div>
+            <h3>Predictor de Mantenimiento para Maquinaria Minera</h3>
+            <p>Sistema de telemetría e IA que procesa datos de camiones de extracción y perforadoras para predecir fallas críticas antes de interrumpir la operación.</p>
+            <dl><div><dt>Para</dt><dd>Empresas mineras y contratistas de maquinaria pesada.</dd></div><div><dt>Zona</dt><dd>Parral / Santa Bárbara / Ojinaga</dd></div></dl>
+          </article>
+          <article class="project-card">
+            <div class="project-card__top"><span class="project-card__tag">Logística Internacional</span><span class="project-card__roi">Medio plazo</span></div>
+            <h3>Optimizador de Rutas de Carga Transfronteriza</h3>
+            <p>Plataforma que predice tiempos de espera en cruces internacionales combinando clima, tráfico y datos históricos para redirigir camiones.</p>
+            <dl><div><dt>Para</dt><dd>Empresas de autotransporte y agencias aduanales.</dd></div><div><dt>Zona</dt><dd>Puentes Internacionales Juárez</dd></div></dl>
+          </article>
+          <article class="project-card">
+            <div class="project-card__top"><span class="project-card__tag">GovTech</span><span class="project-card__roi">Ciclo de licitación</span></div>
+            <h3>Ventanilla Digital y Procesamiento de Documentos Municipal</h3>
+            <p>Plataforma que valida y extrae datos de documentos oficiales para licencias de funcionamiento y permisos de construcción.</p>
+            <dl><div><dt>Para</dt><dd>Gobiernos municipales y notarías públicas.</dd></div><div><dt>Zona</dt><dd>Municipios de Chihuahua</dd></div></dl>
+          </article>
+          <article class="project-card">
+            <div class="project-card__top"><span class="project-card__tag">GovTech</span><span class="project-card__roi">Ciclo de licitación</span></div>
+            <h3>Análisis de Sentimiento y Quejas Ciudadanas</h3>
+            <p>Sistema que rastrea redes sociales y reportes de atención ciudadana para priorizar baches, alumbrado y servicios según su urgencia geográfica.</p>
+            <dl><div><dt>Para</dt><dd>Direcciones de Comunicación Social y Obras Públicas.</dd></div><div><dt>Zona</dt><dd>Chihuahua Capital / Juárez</dd></div></dl>
+          </article>
+          <article class="project-card">
+            <div class="project-card__top"><span class="project-card__tag">Turismo &amp; Hostelería</span><span class="project-card__roi">Estacional</span></div>
+            <h3>Conserje Virtual para la Ruta del Vino</h3>
+            <p>Asistente inteligente que sugiere maridajes, agenda catas y conecta visitantes con hoteles y experiencias gastronómicas locales.</p>
+            <dl><div><dt>Para</dt><dd>Vitivinicultores y viñedos participantes.</dd></div><div><dt>Zona</dt><dd>Delicias / Sacramento / Encinillas</dd></div></dl>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="offer offer--projects" id="custom-software" aria-labelledby="s7">
+    <div class="container">
+      <div class="project-category">
+        <div class="project-category__head">
+          <div>
+            <p class="project-category__eyebrow">IT services / Category 01</p>
+            <h2 id="s7">Custom software development</h2>
+          </div>
+          <span class="project-category__badge">Applications, APIs, and automation</span>
+        </div>
+        <div class="project-grid" aria-label="Custom software development services">
+          <article class="project-card">
+            <div class="project-card__top"><span class="project-card__tag">PWA / Web Apps</span><span class="project-card__roi">A medida</span></div>
+            <h3>Aplicaciones web progresivas y portales empresariales</h3>
+            <p>Desarrollo de aplicaciones web modernas, rápidas y adaptables a dispositivos móviles sin necesidad de publicar en tiendas de aplicaciones.</p>
+            <dl><div><dt>Uso</dt><dd>Portales de clientes, gestión interna e inventarios.</dd></div><div><dt>Stack</dt><dd>React / Next.js / Vue.js, Node.js / Spring Boot</dd></div></dl>
+          </article>
+          <article class="project-card">
+            <div class="project-card__top"><span class="project-card__tag">Arquitectura de software</span><span class="project-card__roi">Escalable</span></div>
+            <h3>Microservicios y APIs RESTful / GraphQL</h3>
+            <p>Diseño, construcción y documentación de arquitecturas escalables para conectar sistemas independientes o modernizar plataformas legadas.</p>
+            <dl><div><dt>Uso</dt><dd>Pagos, ERP, CRM y unificación de bases de datos.</dd></div><div><dt>Stack</dt><dd>Java / Spring Boot, Node.js / Express, Docker</dd></div></dl>
+          </article>
+          <article class="project-card">
+            <div class="project-card__top"><span class="project-card__tag">RPA / Web Automation</span><span class="project-card__roi">Repetible</span></div>
+            <h3>Automatización de procesos con bots y scraping</h3>
+            <p>Creación de scripts y bots que automatizan tareas repetitivas en navegadores, archivos de Excel o sistemas sin API expuesta.</p>
+            <dl><div><dt>Uso</dt><dd>Precios, conciliación bancaria, facturación y formularios.</dd></div><div><dt>Stack</dt><dd>Python, Playwright, Selenium, Beautiful Soup</dd></div></dl>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="offer offer--projects" id="cloud-devops" aria-labelledby="s8">
+    <div class="container">
+      <div class="project-category">
+        <div class="project-category__head">
+          <div>
+            <p class="project-category__eyebrow">IT services / Category 02</p>
+            <h2 id="s8">Cloud infrastructure, DevOps, and databases</h2>
+          </div>
+          <span class="project-category__badge">Operations, scalability, and continuity</span>
+        </div>
+        <div class="project-grid" aria-label="Cloud infrastructure, DevOps, and databases services">
+          <article class="project-card">
+            <div class="project-card__top"><span class="project-card__tag">Cloud Architecture</span><span class="project-card__roi">Optimización</span></div>
+            <h3>Migración y optimización en la nube</h3>
+            <p>Asesoría e implementación para mover servidores locales a la nube o reestructurar arquitecturas cloud para mejorar costos y rendimiento.</p>
+            <dl><div><dt>Uso</dt><dd>Bases de datos, balanceadores y costos cloud.</dd></div><div><dt>Stack</dt><dd>AWS, Azure, Google Cloud Platform</dd></div></dl>
+          </article>
+          <article class="project-card">
+            <div class="project-card__top"><span class="project-card__tag">DevOps</span><span class="project-card__roi">Continuo</span></div>
+            <h3>Pipelines CI/CD y despliegue automatizado</h3>
+            <p>Automatización del ciclo de vida del software para probar y desplegar cada cambio sin interrupciones ni errores manuales.</p>
+            <dl><div><dt>Uso</dt><dd>Pruebas, producción y despliegues con contenedores.</dd></div><div><dt>Stack</dt><dd>GitHub Actions, GitLab CI, Docker, Kubernetes</dd></div></dl>
+          </article>
+          <article class="project-card">
+            <div class="project-card__top"><span class="project-card__tag">Data Operations</span><span class="project-card__roi">Continuidad</span></div>
+            <h3>Optimización, respaldo y mantenimiento de bases de datos</h3>
+            <p>Diagnóstico de rendimiento, tuning de consultas, réplica, respaldos automatizados y recuperación ante desastres.</p>
+            <dl><div><dt>Uso</dt><dd>ERP y puntos de venta con necesidades de continuidad.</dd></div><div><dt>Stack</dt><dd>PostgreSQL, MySQL, SQL Server, Redis, MongoDB</dd></div></dl>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="offer offer--projects" id="integration-security" aria-labelledby="s9">
+    <div class="container">
+      <div class="project-category">
+        <div class="project-category__head">
+          <div>
+            <p class="project-category__eyebrow">IT services / Category 03</p>
+            <h2 id="s9">Integration, cybersecurity, and quality</h2>
+          </div>
+          <span class="project-category__badge">Protection and software reliability</span>
+        </div>
+        <div class="project-grid" aria-label="Integration, cybersecurity, and quality services">
+          <article class="project-card">
+            <div class="project-card__top"><span class="project-card__tag">Ciberseguridad</span><span class="project-card__roi">Protección</span></div>
+            <h3>Auditoría de ciberseguridad básica y hardening</h3>
+            <p>Evaluación de vulnerabilidades en aplicaciones web y servidores, aplicación de parches y configuración de buenas prácticas.</p>
+            <dl><div><dt>Uso</dt><dd>SQL injection, XSS, SSL/TLS y firewalls.</dd></div><div><dt>Stack</dt><dd>Nmap, OWASP ZAP, Cloudflare, VPNs corporativas</dd></div></dl>
+          </article>
+          <article class="project-card">
+            <div class="project-card__top"><span class="project-card__tag">QA Automation</span><span class="project-card__roi">Confiabilidad</span></div>
+            <h3>Pruebas automatizadas de software</h3>
+            <p>Creación de suites de pruebas funcionales y de carga para asegurar que las aplicaciones funcionen antes de lanzamientos críticos.</p>
+            <dl><div><dt>Uso</dt><dd>E-commerce, pagos y registros de usuarios.</dd></div><div><dt>Stack</dt><dd>JUnit, Cypress, Playwright, JMeter</dd></div></dl>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="offer offer--projects" id="b2b-support" aria-labelledby="s10">
+    <div class="container">
+      <div class="project-category">
+        <div class="project-category__head">
+          <div>
+            <p class="project-category__eyebrow">IT services / Category 04</p>
+            <h2 id="s10">Specialized support and B2B integrations</h2>
+          </div>
+          <span class="project-category__badge">Continuity, maintenance, and integration</span>
+        </div>
+        <div class="project-grid" aria-label="Specialized support and B2B integrations services">
+          <article class="project-card">
+            <div class="project-card__top"><span class="project-card__tag">Legacy Support</span><span class="project-card__roi">Evolutivo</span></div>
+            <h3>Mantenimiento evolutivo y correctivo de software legacy</h3>
+            <p>Soporte técnico y refactorización para sistemas antiguos que las empresas necesitan mantener y modernizar.</p>
+            <dl><div><dt>Uso</dt><dd>Corrección de bugs, dependencias y bases legadas.</dd></div><div><dt>Stack</dt><dd>Java, PHP y sistemas empresariales relacionales</dd></div></dl>
+          </article>
+          <article class="project-card">
+            <div class="project-card__top"><span class="project-card__tag">Payments / CFDI</span><span class="project-card__roi">Integrado</span></div>
+            <h3>Integración con pagos y facturación electrónica</h3>
+            <p>Conexión de sistemas existentes con PACs de facturación y procesamiento de pagos con tarjetas o transferencias.</p>
+            <dl><div><dt>Uso</dt><dd>Cobros recurrentes y facturas PDF/XML.</dd></div><div><dt>Stack</dt><dd>Stripe, Mercado Pago, Facturapi, Finkok</dd></div></dl>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="start" aria-labelledby="s6">
+    <div class="container code-close">
+      <div class="code-close__text">
+        <h2 id="s6">Your handler gets a type</h2>
+        <p class="lead">Answer 200 and the event is delivered. Anything else, and Norteva tries again.</p>
+      </div>
+      <figure class="pane" data-reveal="">
+        <p class="pair__file"><code>app/hooks/billing/route.ts</code><span>Your endpoint</span></p>
+        <pre class="code code--lg" tabindex="0" aria-label="The handler, in TypeScript"><code><span class="k">import type</span> { <span class="t">InvoicePaid</span> } <span class="k">from</span> <span class="s">"./invoice-paid"</span>;
+
+        <span class="k">export async function</span> POST(req: <span class="t">Request</span>) {
+          <span class="k">const</span> event = (<span class="k">await</span> req.json()) <span class="k">as</span> <span class="t">InvoicePaid</span>;
+        <span class="hl">  console.log(event.id, event.amount, event.currency);</span>
+          <span class="k">return new</span> <span class="t">Response</span>(<span class="k">null</span>, { status: <span class="s">200</span> });
+        }</code></pre>
+        <figcaption>The type file is the one Norteva inferred from <code>evt_1042</code>.</figcaption>
+      </figure>
+    </div>
+  </section>
+</main>
+
+<footer class="colophon">
+  <div class="container"><canvas class="mast" aria-hidden="true" width="1312" height="288" style="width: 1312px; height: 288px;"></canvas></div>
+</footer>
+
+<script>
+window.hallmarkSlots = (m) => { for (const [k, v] of Object.entries(m)) { const s = document.querySelector(`[data-slot="${k}"]`); if (!s) continue; const im = new Image(); im.src = typeof v === 'string' ? v : v.src; im.alt = (typeof v === 'object' && v.alt) || s.dataset.alt || ''; s.querySelectorAll(':scope > img').forEach((o) => o.remove()); s.prepend(im); } };
+document.querySelectorAll('[data-slot] > img').forEach((i) => { if (i.complete && !i.naturalWidth) i.remove(); else i.addEventListener('error', () => i.remove(), { once: true }); });
+const jump = document.getElementById('jump');
+if (jump && jump.showPopover) {
+  addEventListener('keydown', (e) => { if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); jump.togglePopover(); } });
+  jump.addEventListener('toggle', (e) => { if (e.newState === 'open') jump.querySelector('a').focus(); });
+  jump.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => jump.hidePopover()));
+}
+const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -10% 0px' });
+document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));
+/* The free tier worked out on the visitor's number; the meter is fifty cells, each 2,000 events */
+const perDay = document.getElementById('per-day');
+if (perDay) {
+  const out = document.getElementById('per-month'), bar = document.getElementById('calc-bar'), say = document.getElementById('calc-say'), fmt = new Intl.NumberFormat('en-GB');
+  const run = () => { const n = Math.max(0, Math.round(Number(perDay.value) || 0)) * 30; out.textContent = fmt.format(n); const on = Math.min(50, Math.round(n / 2000)); bar.innerHTML = '<b>' + '▊'.repeat(on) + '</b>' + '·'.repeat(50 - on); bar.classList.toggle('is-over', n > 100000); say.textContent = n <= 100000 ? 'Inside the free 100,000, with ' + fmt.format(100000 - n) + ' to spare.' : fmt.format(n - 100000) + ' over the free 100,000 a month.'; };
+  perDay.addEventListener('input', run); run();
+}
+/* The switcher: four real panels on a tray of keys; arrows, Home, End and the number keys move between them; without script every panel shows in order */
+document.querySelectorAll('[data-switch]').forEach((sw) => {
+  const tabs = [...sw.querySelectorAll('[role="tab"]')];
+  const pick = (t, focus) => { tabs.forEach((x) => { const on = x === t; x.setAttribute('aria-selected', String(on)); x.tabIndex = on ? 0 : -1; document.getElementById(x.getAttribute('aria-controls')).hidden = !on; }); if (focus) t.focus(); };
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => pick(t));
+    t.addEventListener('keydown', (e) => { const d = { ArrowRight: 1, ArrowLeft: -1 }[e.key]; if (d) { e.preventDefault(); pick(tabs[(i + d + tabs.length) % tabs.length], true); } if (e.key === 'Home') { e.preventDefault(); pick(tabs[0], true); } if (e.key === 'End') { e.preventDefault(); pick(tabs[tabs.length - 1], true); } const n = Number(e.key); if (n >= 1 && n <= tabs.length) { e.preventDefault(); pick(tabs[n - 1], true); } });
+  });
+  pick(tabs[0]);
+  document.querySelectorAll('[data-tab-link]').forEach((a) => a.addEventListener('click', (e) => { const t = document.getElementById(a.dataset.tabLink); if (!t) return; e.preventDefault(); pick(t); sw.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' }); t.focus({ preventScroll: true }); }));
+});
+</script>
+<script>const mainContent = document.getElementById('main'); const catalogSection = document.getElementById('does'); const streamSection = document.getElementById('stream'); if (mainContent && catalogSection && streamSection) mainContent.insertBefore(catalogSection, streamSection);
+window.hallmarkSlots = (m) => { for (const [k, v] of Object.entries(m)) { const s = document.querySelector(`[data-slot="${k}"]`); if (!s) continue; const im = new Image(); im.src = typeof v === 'string' ? v : v.src; im.alt = (typeof v === 'object' && v.alt) || s.dataset.alt || ''; s.querySelectorAll(':scope > img').forEach((o) => o.remove()); s.prepend(im); } };
+</script>
+<script src="language.js" defer></script>
+
+</body></html>
