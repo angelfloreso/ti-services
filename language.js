@@ -9,7 +9,9 @@
       jumpLabel: 'Ir a una sección',
       jumpLong: 'Ir a sección',
       jumpShort: 'Secciones',
-      jumpLinks: ['El catálogo', 'Qué hace Norteva', 'Soluciones', 'Tu integración'],
+      jumpSearch: 'Buscar secciones',
+      jumpEmpty: 'No se encontraron secciones.',
+      jumpLinks: ['Soluciones de IA', 'Quiénes somos', 'Industria, gobierno y turismo', 'Desarrollo de software', 'Cloud, DevOps y bases de datos', 'Integración, ciberseguridad y calidad', 'Soporte especializado e integraciones B2B', 'Tu integración'],
       start: 'Comenzar',
       darkMode: 'Activar modo nocturno',
       lightMode: 'Activar modo claro',
@@ -58,7 +60,9 @@
       jumpLabel: 'Jump to a section',
       jumpLong: 'Jump to section',
       jumpShort: 'Sections',
-      jumpLinks: ['The catalog', 'What Norteva does', 'Solutions', 'Your integration'],
+      jumpSearch: 'Search sections',
+      jumpEmpty: 'No sections found.',
+      jumpLinks: ['AI solutions', 'About us', 'Industry, government, and tourism', 'Custom software development', 'Cloud, DevOps, and databases', 'Integration, cybersecurity, and quality', 'Specialized support and B2B integrations', 'Your integration'],
       start: 'Start',
       darkMode: 'Enable dark mode',
       lightMode: 'Enable light mode',
@@ -139,6 +143,9 @@
     attr('.jump', 'aria-label', t.jumpLabel);
     text('.jump__long', t.jumpLong);
     text('.jump__short', t.jumpShort);
+    attr('[data-jump-search]', 'placeholder', t.jumpSearch);
+    text('[data-jump-empty]', t.jumpEmpty);
+    document.querySelectorAll('[data-jump-link]').forEach((link, index) => { if (t.jumpLinks[index]) link.textContent = t.jumpLinks[index]; });
     text('.key--sm', t.start);
     text('#hero-head', t.heroTitle);
     text('.hero .lead', t.heroLead);
