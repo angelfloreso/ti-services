@@ -1,1239 +1,495 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Norteva reúne soluciones de IA y servicios de tecnología para Chihuahua.">
-    <script>
-        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            document.documentElement.classList.add('dark');
-        }
-    </script>
-    <title>Norteva | IA Local para Chihuahua</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            50: '#f0fdf4',
-                            100: '#dcfce7',
-                            500: '#22c55e',
-                            600: '#16a34a',
-                            700: '#15803d',
-                            900: '#14532d',
-                        },
-                        accent: {
-                            500: '#3b82f6',
-                            600: '#2563eb',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- Google Fonts Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600&family=IBM+Plex+Sans:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-            /* Hallmark · modern-minimal · banner landing · Norteva catalog */
-            /* Critique · the original page had the right material, but the catalog entered before the product had a clear first action. */
-            :root {
-                --norteva-ink: #e8f1f0;
-                --norteva-muted: #9fb5b4;
-                --norteva-paper: #071514;
-                --norteva-panel: #102321;
-                --norteva-rule: #29413e;
-                --norteva-green: #63d7aa;
-                --norteva-blue: #8db9ff;
-                --norteva-radius: 16px;
-                --norteva-shadow: 0 24px 70px rgba(2, 6, 23, 0.32);
-            }
-            html,
-            body { overflow-x: clip; }
-            h1,
-            h2,
-            h3,
-            h4 { text-wrap: balance; }
-        body {
-                font-family: Inter, sans-serif;
-            background-image: radial-gradient(circle at 85% 0%, rgba(34, 197, 94, 0.12), transparent 28rem), radial-gradient(circle at 8% 42%, rgba(37, 99, 235, 0.08), transparent 24rem), linear-gradient(135deg, #020617 0%, #0f172a 55%, #111827 100%);
-            transition: background-color 200ms ease, color 200ms ease;
-        }
-        .hero-banner {
-            background: radial-gradient(circle at 88% 30%, rgba(45, 212, 191, 0.34), transparent 14rem), linear-gradient(115deg, #064e3b 0%, #0f766e 42%, #2563eb 100%);
-            box-shadow: var(--norteva-shadow);
-        }
-        .hero-grid {
-            background-image: linear-gradient(rgba(255,255,255,.09) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.09) 1px, transparent 1px);
-            background-size: 32px 32px;
-            mask-image: linear-gradient(to left, black, transparent 75%);
-        }
-        .hero-network {
-            background: radial-gradient(circle, rgba(255,255,255,.92) 0 3px, transparent 4px) 0 0 / 72px 72px;
-            mask-image: radial-gradient(ellipse at center, black 0%, transparent 68%);
-        }
-        .hero-network::before,
-        .hero-network::after {
-            content: '';
-            position: absolute;
-            inset: 18% 8%;
-            border: 1px solid rgba(255,255,255,.3);
-            border-radius: 999px;
-            transform: rotate(28deg);
-        }
-        .hero-network::after {
-            transform: rotate(-28deg) scale(.72);
-            border-color: rgba(167,243,208,.42);
-        }
-        .hero-orbit {
-            animation: norteva-drift 12s ease-in-out infinite alternate;
-        }
-        .project-card {
-            animation: norteva-rise 500ms ease both;
-        }
-        .hero-action {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            min-height: 3rem;
-            padding: 0.75rem 1rem;
-            border: 1px solid rgba(255,255,255,.4);
-            border-radius: 0.75rem;
-            background: #e8f1f0;
-            color: #0b2d26;
-            font-size: 0.875rem;
-            font-weight: 700;
-            transition: transform 220ms ease, background-color 220ms ease;
-        }
-        .hero-action:hover { transform: translateY(-2px); background: #ffffff; }
-        .hero-action:active,
-        .catalog-tab:active,
-        .language-button:active,
-        .theme-button:active { transform: translateY(1px); }
-        button:disabled,
-        a[aria-disabled="true"] { cursor: not-allowed; opacity: .55; }
-        .hero-action:focus-visible,
-        .catalog-tab:focus-visible,
-        .language-button:focus-visible,
-        .theme-button:focus-visible,
-        input:focus-visible {
-            outline: 3px solid var(--norteva-green);
-            outline-offset: 3px;
-        }
-        .hero-map {
-            position: relative;
-            min-height: 19rem;
-            border: 1px solid rgba(255,255,255,.2);
-            border-radius: var(--norteva-radius);
-            background: rgba(3, 35, 29, .42);
-            padding: 1.25rem;
-        }
-        .hero-map::before {
-            content: '';
-            position: absolute;
-            inset: 1.5rem;
-            border: 1px solid rgba(167,243,208,.26);
-            border-radius: 50% 46% 52% 43%;
-            transform: rotate(-12deg);
-        }
-        .hero-map::after {
-            content: '';
-            position: absolute;
-            inset: 3.25rem 2rem;
-            border: 1px dashed rgba(141,185,255,.38);
-            border-radius: 44% 56% 48% 52%;
-            transform: rotate(18deg);
-        }
-        .hero-map-content { position: relative; z-index: 1; }
-        .hero-map-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
-            border-bottom: 1px solid rgba(255,255,255,.14);
-            padding: 0.8rem 0;
-            color: rgba(255,255,255,.88);
-            font-size: 0.875rem;
-        }
-        .hero-map-row:last-child { border-bottom: 0; }
-        .hero-map-count { color: #a7f3d0; font-weight: 700; }
-        .catalog-intro {
-            display: flex;
-            align-items: end;
-            justify-content: space-between;
-            gap: 1.5rem;
-            border-bottom: 1px solid var(--norteva-rule);
-            padding-bottom: 1.5rem;
-        }
-        .catalog-intro h2 { max-width: 24ch; }
-        .project-card::before {
-            content: '';
-            position: absolute;
-            inset: 0 auto 0 0;
-            width: 3px;
-            border-radius: 3px 0 0 3px;
-            background: linear-gradient(to bottom, #34d399, #3b82f6);
-            opacity: .8;
-        }
-        @keyframes norteva-drift {
-            from { transform: translate3d(0, 0, 0) rotate(-2deg); }
-            to { transform: translate3d(10px, -6px, 0) rotate(2deg); }
-        }
-        @keyframes norteva-rise {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @media (prefers-reduced-motion: reduce) {
-            .hero-orbit,
-            .project-card { animation: none; }
-        }
-        .theme-button[aria-pressed="true"] {
-            background: rgb(245 158 11 / 0.16);
-            color: rgb(252 211 77);
-        }
-        html:not(.dark) body {
-            background-color: #f8fafc;
-            background-image: radial-gradient(circle at 85% 0%, rgba(16, 185, 129, 0.16), transparent 28rem), radial-gradient(circle at 8% 42%, rgba(37, 99, 235, 0.08), transparent 24rem), linear-gradient(135deg, #f8fafc 0%, #eef6f4 55%, #eff6ff 100%);
-            color: #0f172a;
-        }
-        html:not(.dark) .hero-action { background: #0f766e; color: #ffffff; }
-        html:not(.dark) .hero-action:hover { background: #115e59; }
-        html:not(.dark) .hero-map { background: rgba(6, 78, 59, .66); }
-        html:not(.dark) .catalog-intro { border-color: #b7cfc9; }
-        html:not(.dark) .border-slate-800,
-        html:not(.dark) .border-slate-800\/80 { border-color: #d7e1e8; }
-        html:not(.dark) .bg-slate-900,
-        html:not(.dark) .bg-slate-900\/50,
-        html:not(.dark) .bg-slate-900\/40,
-        html:not(.dark) .bg-slate-900\/75,
-        html:not(.dark) .bg-slate-950\/60 { background-color: rgb(255 255 255 / 0.78); }
-        html:not(.dark) .text-white { color: #102a43; }
-        html:not(.dark) .text-slate-100,
-        html:not(.dark) .text-slate-200 { color: #17324d; }
-        html:not(.dark) .text-slate-300,
-        html:not(.dark) .text-slate-400 { color: #486581; }
-        html:not(.dark) .text-slate-500,
-        html:not(.dark) .text-slate-600 { color: #627d98; }
-        html:not(.dark) article > div:first-child > span {
-            background-color: #e6fffa;
-            border-color: #99f6e4;
-            color: #115e59;
-        }
-        html:not(.dark) .hero-banner .text-white { color: #ffffff; }
-        html:not(.dark) header h1 { color: #0f766e; }
-        html:not(.dark) .language-button[aria-pressed="true"] { color: #047857; }
-        html:not(.dark) .catalog-tab[aria-selected="true"] {
-            background-color: #d1fae5;
-            border-color: #6ee7b7;
-            color: #065f46;
-        }
-        html:not(.dark) .theme-button[aria-pressed="true"] { color: #b45309; }
-        .language-button[aria-pressed="true"] {
-            background: rgb(34 197 94 / 0.16);
-            color: rgb(134 239 172);
-        }
-        /* Custom scrollbar for cards */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: rgba(15, 23, 42, 0.6);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: rgba(51, 65, 85, 0.8);
-            border-radius: 3px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: rgba(71, 85, 105, 1);
-        }
-        /* Cobalt theme: cool paper, graphite surfaces, one electric signal. */
-        .cobalt-page {
-            --cobalt-paper: oklch(98.6% 0.005 250);
-            --cobalt-paper-2: oklch(96.2% 0.008 252);
-            --cobalt-paper-3: oklch(93% 0.011 252);
-            --cobalt-ink: oklch(21% 0.028 262);
-            --cobalt-ink-2: oklch(36% 0.022 260);
-            --cobalt-muted: oklch(50% 0.018 258);
-            --cobalt-rule: oklch(90% 0.009 252);
-            --cobalt-rule-2: oklch(83% 0.012 252);
-            --cobalt-graphite: oklch(21% 0.024 262);
-            --cobalt-graphite-2: oklch(26.5% 0.026 262);
-            --cobalt-graphite-ink: oklch(93% 0.010 250);
-            --cobalt-graphite-muted: oklch(69% 0.022 256);
-            --cobalt-accent: oklch(52% 0.19 258);
-            --cobalt-accent-2: oklch(76% 0.13 254);
-            --cobalt-accent-wash: oklch(95% 0.028 256);
-            --cobalt-mono: "JetBrains Mono", ui-monospace, monospace;
-            --cobalt-display: "Familjen Grotesk", system-ui, sans-serif;
-            --cobalt-body: "IBM Plex Sans", system-ui, sans-serif;
-            background: var(--cobalt-paper) !important;
-            color: var(--cobalt-ink) !important;
-            font-family: var(--cobalt-body) !important;
-        }
-        .cobalt-page header {
-            border-color: var(--cobalt-rule) !important;
-            background: var(--cobalt-paper) !important;
-            backdrop-filter: none;
-        }
-        .cobalt-page header h1,
-        .cobalt-page h2,
-        .cobalt-page h3,
-        .cobalt-page h4 {
-            color: var(--cobalt-ink) !important;
-            font-family: var(--cobalt-display);
-            font-weight: 600;
-            letter-spacing: -0.028em;
-        }
-        .cobalt-page header h1 { background: none !important; }
-        .cobalt-page header p,
-        .cobalt-page .text-slate-400,
-        .cobalt-page .text-slate-500,
-        .cobalt-page .text-slate-600 { color: var(--cobalt-muted) !important; }
-        .cobalt-page .bg-slate-900,
-        .cobalt-page .bg-slate-900\/50,
-        .cobalt-page .bg-slate-900\/75,
-        .cobalt-page .bg-slate-900\/40 { background: var(--cobalt-paper-2) !important; }
-        .cobalt-page .border-slate-800,
-        .cobalt-page .border-slate-800\/80,
-        .cobalt-page .border-slate-700\/50 { border-color: var(--cobalt-rule) !important; }
-        .cobalt-page .hero-banner {
-            border: 1px solid var(--cobalt-rule-2) !important;
-            border-radius: 8px;
-            background: var(--cobalt-paper) !important;
-            box-shadow: none;
-        }
-        .cobalt-page .hero-banner::before {
-            content: "..:::::::       ..::::::     .::       .::     :::..       .::\A  .:::::::.    .::::::::.    .::       .::     .:::::.      .::\A .::      .::  .::       .::  .::       .::   .::    .::     .::\A .::           .::       .::  .::       .::  .::      .::    .::\A .::           .::::::::::.   .::       .::  .::::::::::.    .::\A .::           .::            .::       .::  .::      .::    .::\A  .::      .::  .::           .::       .::  .::       .::  .::\A   .::::::::    .::            .::::::::.   .::        .::.::";
-            position: absolute;
-            right: 3%;
-            top: 10%;
-            z-index: 0;
-            color: var(--cobalt-accent-2);
-            font: 500 10px/1.6 var(--cobalt-mono);
-            opacity: .48;
-            white-space: pre;
-            pointer-events: none;
-        }
-        .cobalt-page .hero-grid,
-        .cobalt-page .hero-network { display: none; }
-        .cobalt-page .hero-banner .text-white,
-        .cobalt-page .hero-banner .text-emerald-50,
-        .cobalt-page .hero-banner .text-white\/70 { color: var(--cobalt-ink) !important; }
-        .cobalt-page .hero-banner .text-emerald-50\/90 { color: var(--cobalt-ink-2) !important; }
-        .cobalt-page #regionLabel {
-            border: 0;
-            border-left: 3px solid var(--cobalt-accent);
-            border-radius: 0;
-            background: transparent;
-            color: var(--cobalt-muted) !important;
-            padding-left: 10px;
-        }
-        .cobalt-page .hero-action {
-            border: 1px solid var(--cobalt-accent-edge, var(--cobalt-accent));
-            border-radius: 6px;
-            background: var(--cobalt-accent) !important;
-            color: var(--cobalt-paper) !important;
-            box-shadow: 0 3px 0 0 var(--cobalt-accent-deep, oklch(43% 0.2 262));
-            font-family: var(--cobalt-display);
-        }
-        .cobalt-page .hero-action:hover { background: var(--cobalt-accent-deep, oklch(43% 0.2 262)) !important; }
-        .cobalt-page .hero-map {
-            border: 1px solid var(--cobalt-rule-2);
-            border-radius: 8px 8px 8px 16px;
-            background: var(--cobalt-graphite) !important;
-            box-shadow: none;
-        }
-        .cobalt-page .hero-map::before,
-        .cobalt-page .hero-map::after { border-color: var(--cobalt-graphite-2); }
-        .cobalt-page .hero-map-row { border-color: var(--cobalt-graphite-2); color: var(--cobalt-graphite-ink); }
-        .cobalt-page .hero-map-count { color: var(--cobalt-accent-2); font-family: var(--cobalt-mono); }
-        .cobalt-page .hero-map-content > div:first-child { color: var(--cobalt-graphite-muted) !important; }
-        .cobalt-page header .text-brand-500 { color: var(--cobalt-accent) !important; }
-        .cobalt-page .catalog-tab {
-            border-color: var(--cobalt-rule-2) !important;
-            border-radius: 6px;
-            background: var(--cobalt-paper-2) !important;
-            color: var(--cobalt-ink-2) !important;
-            font-family: var(--cobalt-display);
-            box-shadow: 0 2px 0 0 var(--cobalt-rule-2);
-        }
-        .cobalt-page .catalog-tab[aria-selected="true"] {
-            border-color: var(--cobalt-accent) !important;
-            background: var(--cobalt-accent) !important;
-            color: var(--cobalt-paper) !important;
-            box-shadow: 0 3px 0 0 oklch(43% 0.2 262);
-        }
-        .cobalt-page #searchInput {
-            border-color: var(--cobalt-rule-2) !important;
-            border-radius: 6px;
-            background: var(--cobalt-paper-2) !important;
-            color: var(--cobalt-ink) !important;
-            font-family: var(--cobalt-body);
-        }
-        .cobalt-page #projectCount,
-        .cobalt-page .language-button,
-        .cobalt-page .theme-button {
-            border-color: var(--cobalt-rule-2) !important;
-            border-radius: 6px;
-            background: var(--cobalt-paper-2) !important;
-            color: var(--cobalt-ink-2) !important;
-        }
-        .cobalt-page .language-button[aria-pressed="true"] {
-            background: var(--cobalt-accent-wash) !important;
-            color: var(--cobalt-accent) !important;
-        }
-        .cobalt-page .project-card {
-            border-color: var(--cobalt-rule) !important;
-            border-radius: 8px 8px 8px 16px;
-            background: var(--cobalt-paper) !important;
-            box-shadow: 0 1px 2px oklch(21% 0.028 262 / 0.06);
-        }
-        .cobalt-page .project-card::before {
-            width: 2px;
-            background: var(--cobalt-accent);
-        }
-        .cobalt-page .project-card .bg-slate-800 {
-            background: var(--cobalt-accent-wash) !important;
-            color: var(--cobalt-accent) !important;
-            border-color: var(--cobalt-rule-2) !important;
-        }
-        .cobalt-page .project-card p,
-        .cobalt-page .project-card span { color: var(--cobalt-ink-2) !important; }
-        .cobalt-page .project-card strong { color: var(--cobalt-ink) !important; }
-        .cobalt-page .project-card i,
-        .cobalt-page .text-brand-500 { color: var(--cobalt-accent) !important; }
-        .cobalt-page #tiersContainer section > div:first-child > div:first-child {
-            border-color: var(--cobalt-rule-2) !important;
-            background: var(--cobalt-paper-2) !important;
-        }
-        .cobalt-page #tiersContainer section > div:first-child > div:first-child i { color: var(--cobalt-accent) !important; }
-        .cobalt-page #tiersContainer section > div:first-child > span {
-            border-color: var(--cobalt-rule-2) !important;
-            background: var(--cobalt-accent-wash) !important;
-            color: var(--cobalt-accent) !important;
-        }
-        .cobalt-page footer { border-color: var(--cobalt-rule) !important; background: var(--cobalt-paper-2) !important; }
-        .cobalt-page footer .text-slate-500,
-        .cobalt-page footer .text-slate-600 { color: var(--cobalt-muted) !important; }
-        .cobalt-page .hero-action:focus-visible,
-        .cobalt-page .catalog-tab:focus-visible,
-        .cobalt-page .language-button:focus-visible,
-        .cobalt-page .theme-button:focus-visible,
-        .cobalt-page input:focus-visible { outline-color: var(--cobalt-accent); }
-        .cobalt-nav { position: relative; min-height: 3.5rem; }
-        .cobalt-wordmark {
-            color: var(--cobalt-ink) !important;
-            font: 600 1.3rem/1 var(--cobalt-display);
-            letter-spacing: -0.028em;
-            text-decoration: none;
-        }
-        .cobalt-wordmark-glyph { color: var(--cobalt-accent); font: 500 1.8rem/0.8 var(--cobalt-mono); }
-        .cobalt-jump,
-        .cobalt-key {
-            align-items: center;
-            border: 1px solid var(--cobalt-rule-2);
-            border-radius: 6px;
-            background: var(--cobalt-paper-2);
-            color: var(--cobalt-ink-2);
-            display: inline-flex;
-            font: 500 .85rem/1 var(--cobalt-display);
-            gap: .45rem;
-            min-height: 2.25rem;
-            padding: .6rem .8rem;
-            text-decoration: none;
-            box-shadow: 0 2px 0 0 var(--cobalt-rule-2);
-            transition: transform 120ms ease, background-color 120ms ease;
-        }
-        .cobalt-jump:hover,
-        .cobalt-key:hover { transform: translateY(-1px); background: var(--cobalt-accent-wash); }
-        .cobalt-jump:active,
-        .cobalt-key:active { transform: translateY(2px); box-shadow: none; }
-        .cobalt-jump kbd { border: 1px solid var(--cobalt-rule-2); border-radius: 3px; padding: .18rem .3rem; font: 400 .7rem/1 var(--cobalt-mono); }
-        .cobalt-key-sm { background: var(--cobalt-accent); border-color: var(--cobalt-accent); color: var(--cobalt-paper); box-shadow: 0 3px 0 0 oklch(43% 0.2 262); }
-        .cobalt-key-sm:hover { background: oklch(43% 0.2 262); color: var(--cobalt-paper); }
-        .cobalt-menu {
-            border: 1px solid var(--cobalt-rule-2);
-            border-radius: 6px;
-            background: var(--cobalt-paper);
-            box-shadow: 0 8px 18px oklch(21% 0.028 262 / .14);
-            color: var(--cobalt-ink);
-            display: grid;
-            gap: .25rem;
-            margin: 3.1rem 5.5rem 0 auto;
-            padding: .5rem;
-            width: 15rem;
-        }
-        .cobalt-menu a { color: var(--cobalt-ink-2); font: 500 .85rem/1.2 var(--cobalt-body); padding: .55rem .65rem; text-decoration: none; }
-        .cobalt-menu a:hover { background: var(--cobalt-accent-wash); color: var(--cobalt-accent); }
-        .cobalt-command {
-            align-items: center;
-            background: var(--cobalt-graphite);
-            border-radius: 6px;
-            color: var(--cobalt-graphite-ink);
-            display: flex;
-            font: 400 .75rem/1.3 var(--cobalt-mono);
-            justify-content: space-between;
-            margin-top: 1rem;
-            max-width: 32rem;
-            padding: .8rem 1rem;
-        }
-        .cobalt-command code { overflow-wrap: anywhere; }
-        .cobalt-command code span { color: var(--cobalt-accent-2); }
-        .cobalt-command-status { color: var(--cobalt-accent-2); margin-left: 1rem; }
-        .cobalt-legend {
-            border-bottom: 1px solid var(--cobalt-rule);
-            color: var(--cobalt-muted);
-            display: flex;
-            flex-wrap: wrap;
-            font: 400 .76rem/1.4 var(--cobalt-body);
-            gap: 1.5rem;
-            padding: .9rem 0 1.1rem;
-        }
-        .cobalt-legend code { color: var(--cobalt-accent); font-family: var(--cobalt-mono); margin-right: .35rem; }
-        .cobalt-page #catalog { border-bottom: 0; padding-top: 1.25rem; }
-        .cobalt-page #tiersContainer { border-top: 1px solid var(--cobalt-rule); padding-top: 3rem; }
-        .cobalt-page #tiersContainer section { padding-bottom: 2.5rem; }
-        .cobalt-page #tiersContainer section > div:first-child { align-items: center; min-height: 3.5rem; }
-        @media (max-width: 60rem) {
-            .cobalt-nav-actions { min-width: 0; }
-            .cobalt-wordmark { flex-shrink: 0; }
-            .cobalt-menu { margin-right: 0; }
-        }
-        @media (max-width: 60rem) {
-            .cobalt-page .hero-banner::before { right: -14rem; opacity: .25; }
-        }
-        html.dark .cobalt-page {
-            --cobalt-paper: oklch(16% 0.018 262);
-            --cobalt-paper-2: oklch(20% 0.022 262);
-            --cobalt-paper-3: oklch(24% 0.024 262);
-            --cobalt-ink: oklch(93% 0.010 250);
-            --cobalt-ink-2: oklch(76% 0.018 256);
-            --cobalt-muted: oklch(68% 0.018 256);
-            --cobalt-rule: oklch(30% 0.024 262);
-            --cobalt-rule-2: oklch(39% 0.03 260);
-        }
-        html.dark .cobalt-page .hero-banner { background: var(--cobalt-paper) !important; }
-        html.dark .cobalt-page .hero-action { color: var(--cobalt-ink); }
-    </style>
+<!DOCTYPE html><html lang="en-GB" class="js has-field" style="--tick: 1;"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Norteva, typed events from any webhook</title>
+<meta name="description" content="Norteva is an API that turns any webhook into a typed event stream, retries failed deliveries and replays any event. Free up to 100,000 events a month.">
+<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="style.css">
+<script>document.documentElement.classList.add('js'); let tick = 0; addEventListener('resize', () => document.documentElement.style.setProperty('--tick', String(tick ^= 1)));</script><style type="text/css"></style>
+<script src="wire.js" defer=""></script>
 </head>
-<body id="top" class="cobalt-page bg-slate-950 text-slate-100 min-h-screen flex flex-col selection:bg-brand-500 selection:text-slate-950">
+<body id="top">
+<a class="skip" href="#main">Skip to content</a>
 
-    <!-- Header & Hero Section -->
-    <header class="border-b border-slate-800 bg-slate-900/50 backdrop-blur-md sticky top-0 z-50">
-        <div class="cobalt-nav max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
-            <a class="cobalt-wordmark flex items-center gap-2" href="#top" aria-label="Norteva, volver al inicio">
-                <span class="cobalt-wordmark-glyph" aria-hidden="true">┊</span>
-                <span>Norteva</span>
-            </a>
-            <div class="cobalt-nav-actions flex items-center gap-2">
-                <button class="cobalt-jump" type="button" popovertarget="sectionMenu" aria-label="Ir a una sección">
-                    <i data-lucide="search" class="h-4 w-4"></i>
-                    <span class="hidden sm:inline">Ir a sección</span>
-                    <kbd class="hidden md:inline">⌘</kbd><kbd class="hidden md:inline">K</kbd>
-                </button>
-                <div class="relative hidden lg:block w-56">
-                    <i data-lucide="filter" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
-                    <input type="text" id="searchInput" placeholder="Filtrar catálogo..." aria-label="Buscar proyecto o zona"
-                           class="w-full pl-9 pr-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-brand-500 transition-colors">
-                </div>
-                <div class="hidden sm:flex items-center gap-2 px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-xs font-semibold text-slate-300 whitespace-nowrap" id="projectCount">
-                    <span>20 Proyectos</span>
-                </div>
-                <div class="flex items-center rounded-lg border border-slate-800 bg-slate-900 p-1 text-xs font-semibold" aria-label="Language selector">
-                    <button class="language-button rounded-md px-2.5 py-1.5 text-slate-400 transition-colors" data-language="es" aria-pressed="true">ES</button>
-                    <button class="language-button rounded-md px-2.5 py-1.5 text-slate-400 transition-colors" data-language="en" aria-pressed="false">EN</button>
-                </div>
-                <button id="themeToggle" class="theme-button flex h-9 w-9 items-center justify-center rounded-lg border border-slate-800 bg-slate-900 text-slate-400 transition-colors hover:text-amber-400" aria-label="Cambiar a modo claro" aria-pressed="true" title="Cambiar tema">
-                    <i data-lucide="sun" class="w-4 h-4"></i>
-                </button>
-                <a class="cobalt-key cobalt-key-sm hidden sm:inline-flex" href="#catalog">Ver catálogo</a>
+<header class="site">
+  <div class="container site__in">
+    <a class="wordmark" href="#top" aria-label="Norteva, back to the top"><span class="wordmark__glyph" aria-hidden="true">┊</span>Norteva</a>
+    <button class="jump" type="button" popovertarget="jump" aria-keyshortcuts="Meta+K Control+K" aria-label="Jump to a section">
+      <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+      <span class="jump__long">Jump to a section</span><span class="jump__short">Jump</span>
+      <span class="jump__keys" aria-hidden="true"><kbd>⌘</kbd><kbd>K</kbd></span>
+    </button>
+    <div class="jump__menu" id="jump" popover="" aria-label="Sections">
+      <a href="#stream">The console</a>
+      <a href="#does">What it does</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#start">Your handler</a>
+    </div>
+    <div class="site__controls">
+      <div class="language-switcher" role="group" aria-label="Language">
+        <button type="button" class="language-switcher__button is-active" data-language="es" aria-pressed="true">ES</button>
+        <button type="button" class="language-switcher__button" data-language="en" aria-pressed="false">EN</button>
+      </div>
+      <button class="theme-switcher" type="button" data-theme-toggle aria-pressed="false" aria-label="Activar modo nocturno" title="Activar modo nocturno">
+        <svg class="theme-switcher__moon" aria-hidden="true" viewBox="0 0 24 24"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3 6.7 6.7 0 0 0 21 12.8Z"></path></svg>
+        <svg class="theme-switcher__sun" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"></path></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" aria-labelledby="hero-head">
+    <canvas class="field" aria-hidden="true" width="2468" height="632" style="width: 2468px; height: 632px;"></canvas>
+    <div class="container hero__grid">
+      <div class="hero__text">
+        <h1 id="hero-head">Local intelligence for real decisions.</h1>
+        <p class="lead">Explore digital initiatives and services created for Chihuahua communities, businesses, and organizations.</p>
+        <div class="actions">
+          <a class="key key--primary hero-email" href="mailto:contacto@norteva.com.mx" aria-label="Enviar email a Norteva">Enviar Email</a>
+          <a class="key hero-whatsapp" href="https://api.whatsapp.com/send?text=Hola%20Norteva%2C%20quiero%20conocer%20sus%20soluciones." target="_blank" rel="noopener" aria-label="Enviar mensaje por WhatsApp a Norteva">Enviar WhatsApp</a>
+        </div>
+        <div class="curl" data-copy="contacto@norteva.com.mx">
+          <code class="curl__cmd"><span class="curl__p" aria-hidden="true">$</span>contacto@norteva.com.mx</code>
+          <button class="curl__copy" type="button" aria-label="Copy the curl command"><span class="curl__say" aria-live="polite">Copy</span></button>
+        </div>
+        <p class="hero__terms">Free up to 100,000 events a month.</p>
+      </div>
+    </div>
+    <div class="container legend-row">
+    <ul class="legend" aria-label="How to read the field">
+      <li><code class="legend__raw">{"…</code><span>Raw webhook</span></li>
+      <li><code class="legend__typed">invoice.paid</code><span>Typed event</span></li>
+      <li><code class="legend__gap">503 ┄┄</code><span>Retry, waiting</span></li>
+    </ul>
+    </div>
+  </section>
+
+  <section class="live" id="stream" aria-labelledby="s0">
+    <div class="container">
+      <div class="head">
+        <h2 id="s0"> Soluciones de inteligencia artificial</h2>
+        <p class="lead">Proyectos de IA para personas, empresas y organizaciones.</p>
+      </div>
+      <div class="project-grid" aria-label="Proyectos de trabajo y productividad">
+        <article class="project-card">
+          <div class="project-card__top"><span class="project-card__tag">Recursos Humanos / Maquila</span><span class="project-card__roi">Inmediato</span></div>
+          <h3>Reclutamiento Masivo y Filtrado por WhatsApp</h3>
+          <p>Bot conversacional inteligente en WhatsApp para pre-filtrar, evaluar candidatos operativos, validar referencias y coordinar turnos para plantas maquiladoras y comercio masivo.</p>
+          <dl><div><dt>Para</dt><dd>Agencias de RH y plantas maquiladoras.</dd></div><div><dt>Zona</dt><dd>Juárez / Chihuahua</dd></div></dl>
+        </article>
+        <article class="project-card">
+          <div class="project-card__top"><span class="project-card__tag">Gestión Energética</span><span class="project-card__roi">&lt; 30 días</span></div>
+          <h3>Auditor de Eficiencia Energética para Negocios</h3>
+          <p>Software de análisis conectado a medidores para reducir el alto costo de energía de aires acondicionados y recomendar pautas operativas óptimas en tarifas CFE.</p>
+          <dl><div><dt>Para</dt><dd>Hoteles, hospitales, plazas e industrias ligeras.</dd></div><div><dt>Zona</dt><dd>Estado de Chihuahua</dd></div></dl>
+        </article>
+        <article class="project-card">
+          <div class="project-card__top"><span class="project-card__tag">Bienes Raíces / PropTech</span><span class="project-card__roi">Inmediato</span></div>
+          <h3>Asistente Legal de Contratos Inmobiliarios</h3>
+          <p>Herramienta que redacta y revisa contratos de arrendamiento y compraventa adaptados al Código Civil del Estado de Chihuahua.</p>
+          <dl><div><dt>Para</dt><dd>Agencias inmobiliarias y desarrolladores.</dd></div><div><dt>Zona</dt><dd>Cantera / San Francisco / Juárez</dd></div></dl>
+        </article>
+        <article class="project-card">
+          <div class="project-card__top"><span class="project-card__tag">Ciberseguridad</span><span class="project-card__roi">Corto plazo</span></div>
+          <h3>Capacitación y Prevención de Extorsión por IA</h3>
+          <p>Simulador interactivo para entrenar al personal contra clonación de voz, fraudes telefónicos locales y phishing contextualizado.</p>
+          <dl><div><dt>Para</dt><dd>Empresas y departamentos de TI corporativos.</dd></div><div><dt>Zona</dt><dd>Chihuahua / Juárez / Delicias</dd></div></dl>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <div class="wire" aria-hidden="true"><canvas class="wire__row" width="2468" height="16" style="width: 2468px; height: 16px;"></canvas></div>
+
+  <section class="does" id="does" aria-labelledby="s1">
+    <div class="container">
+      <div class="head">
+        <h2 id="s1">Four jobs, one stream</h2>
+        <p class="lead">What Norteva does between your providers and your endpoint.</p>
+      </div>
+      <div class="switch" data-switch="">
+        <div class="tabs" role="tablist" aria-label="What Norteva does">
+          <button role="tab" id="t-typed" aria-controls="p-typed" aria-selected="true" tabindex="0"><span class="tabs__n" aria-hidden="true">1</span>Types</button>
+          <button role="tab" id="t-retry" aria-controls="p-retry" aria-selected="false" tabindex="-1"><span class="tabs__n" aria-hidden="true">2</span>Retries</button>
+          <button role="tab" id="t-replay" aria-controls="p-replay" aria-selected="false" tabindex="-1"><span class="tabs__n" aria-hidden="true">3</span>Replay</button>
+          <button role="tab" id="t-in" aria-controls="p-in" aria-selected="false" tabindex="-1"><span class="tabs__n" aria-hidden="true">4</span>Sources</button>
+        </div>
+
+        <div class="panel" role="tabpanel" id="p-typed" aria-labelledby="t-typed" tabindex="0">
+          <p class="panel__say">Norteva reads each payload and gives every field a type.</p>
+          <figure class="insp is-wired" data-insp="" data-on="amount">
+            <div class="insp__bar"><code>evt_1042</code><span>Received from billing.example.com</span><span class="insp__to">Inferred by Norteva</span></div>
+            <div class="insp__panes">
+              <div class="insp__pane">
+                <p class="insp__file"><code>evt_1042.json</code></p>
+<pre class="code code--insp"><code><span class="p">{</span>
+  <span class="ln" data-k="type"><span class="n">"type"</span><span class="p">:</span> <span class="s">"invoice.paid"</span><span class="p">,</span></span>
+  <span class="ln" data-k="id"><span class="n">"id"</span><span class="p">:</span> <span class="s">"evt_1042"</span><span class="p">,</span></span>
+  <span class="ln is-on" data-k="amount"><span class="n">"amount"</span><span class="p">:</span> <span class="s">4800</span><span class="p">,</span></span>
+  <span class="ln" data-k="currency"><span class="n">"currency"</span><span class="p">:</span> <span class="s">"GBP"</span><span class="p">,</span></span>
+  <span class="ln" data-k="paid_at"><span class="n">"paid_at"</span><span class="p">:</span> <span class="s">"2026-10-08T09:42:16Z"</span></span>
+<span class="p">}</span></code></pre>
+              </div>
+              <div class="insp__pane">
+                <p class="insp__file"><code>invoice-paid.ts</code></p>
+<pre class="code code--insp"><code><span class="c">// inferred from evt_1042</span>
+<span class="k">export type</span> <span class="t">InvoicePaid</span> = {
+  <span class="ln" data-k="type">type: <span class="s">"invoice.paid"</span>;</span>
+  <span class="ln" data-k="id">id: <span class="t">string</span>;</span>
+  <span class="ln is-on" data-k="amount">amount: <span class="t">number</span>;</span>
+  <span class="ln" data-k="currency">currency: <span class="s">"GBP"</span>;</span>
+  <span class="ln" data-k="paid_at">paid_at: <span class="t">string</span>;</span>
+};</code></pre>
+              </div>
+              <div class="insp__wires" aria-hidden="true"><i class="wire-c" data-k="type" style="--n: 0; --r: 10px;"><i class="wire-c__node" style="left: 342px; top: 166px; width: 5px; height: 5px;"></i><i class="wire-c__h" style="left: 344px; top: 168px; width: 283px; height: 1px;"></i><i class="wire-c__e wire-c__e--tr" style="left: 627px; top: 168px; width: 10px; height: 10px;"></i><i class="wire-c__e wire-c__e--bl" style="left: 636px; top: 178px; width: 11px; height: 11px;"></i><i class="wire-c__h" style="left: 647px; top: 188px; width: 110px; height: 1px;"></i><i class="wire-c__node" style="left: 755px; top: 186px; width: 5px; height: 5px;"></i></i><i class="wire-c" data-k="id" style="--n: 1; --r: 10px;"><i class="wire-c__node" style="left: 270px; top: 206px; width: 5px; height: 5px;"></i><i class="wire-c__h" style="left: 272px; top: 208px; width: 364px; height: 1px;"></i><i class="wire-c__e wire-c__e--tr" style="left: 636px; top: 208px; width: 10px; height: 10px;"></i><i class="wire-c__e wire-c__e--bl" style="left: 645px; top: 218px; width: 11px; height: 11px;"></i><i class="wire-c__h" style="left: 656px; top: 228px; width: 101px; height: 1px;"></i><i class="wire-c__node" style="left: 755px; top: 226px; width: 5px; height: 5px;"></i></i><i class="wire-c is-on" data-k="amount" style="--n: 2; --r: 10px;"><i class="wire-c__node" style="left: 246px; top: 246px; width: 5px; height: 5px;"></i><i class="wire-c__h" style="left: 248px; top: 248px; width: 398px; height: 1px;"></i><i class="wire-c__e wire-c__e--tr" style="left: 646px; top: 248px; width: 10px; height: 10px;"></i><i class="wire-c__e wire-c__e--bl" style="left: 655px; top: 258px; width: 11px; height: 11px;"></i><i class="wire-c__h" style="left: 666px; top: 268px; width: 91px; height: 1px;"></i><i class="wire-c__node" style="left: 755px; top: 266px; width: 5px; height: 5px;"></i></i><i class="wire-c" data-k="currency" style="--n: 3; --r: 10px;"><i class="wire-c__node" style="left: 282px; top: 286px; width: 5px; height: 5px;"></i><i class="wire-c__h" style="left: 284px; top: 288px; width: 372px; height: 1px;"></i><i class="wire-c__e wire-c__e--tr" style="left: 656px; top: 288px; width: 10px; height: 10px;"></i><i class="wire-c__e wire-c__e--bl" style="left: 665px; top: 298px; width: 11px; height: 11px;"></i><i class="wire-c__h" style="left: 676px; top: 308px; width: 81px; height: 1px;"></i><i class="wire-c__node" style="left: 755px; top: 306px; width: 5px; height: 5px;"></i></i><i class="wire-c" data-k="paid_at" style="--n: 4; --r: 10px;"><i class="wire-c__node" style="left: 462px; top: 326px; width: 5px; height: 5px;"></i><i class="wire-c__h" style="left: 464px; top: 328px; width: 201px; height: 1px;"></i><i class="wire-c__e wire-c__e--tr" style="left: 665px; top: 328px; width: 10px; height: 10px;"></i><i class="wire-c__e wire-c__e--bl" style="left: 674px; top: 338px; width: 11px; height: 11px;"></i><i class="wire-c__h" style="left: 685px; top: 348px; width: 72px; height: 1px;"></i><i class="wire-c__node" style="left: 755px; top: 346px; width: 5px; height: 5px;"></i></i></div>
             </div>
-            <div id="sectionMenu" popover class="cobalt-menu" aria-label="Secciones">
-                <a href="#catalog">El catálogo</a>
-                <a href="#tiersContainer">Soluciones y servicios</a>
-                <a href="#footerCopyright">Información de Norteva</a>
+          </figure>
+        </div>
+
+        <div class="panel" role="tabpanel" id="p-retry" aria-labelledby="t-retry" tabindex="0" hidden="">
+          <p class="panel__say">When your endpoint is down, Norteva holds <code>evt_1042</code> and tries again: a 503, a timeout, then 200 OK.</p>
+          <figure class="tl" data-tl="">
+            <ol class="tl__at" aria-label="Delivery attempts of evt_1042 to example.com/hooks/billing, spaced by time">
+              <li class="tl__a tl__a--bad" style="--at: 0"><span class="tl__fig">503</span><span class="tl__what">Service Unavailable in 2.1 s</span><code>Attempt 1, 09:42:18</code></li>
+              <li class="tl__a tl__a--bad" style="--at: 0.3333"><span class="tl__fig">10.0 s</span><span class="tl__what">No answer, timed out</span><code>Attempt 2, 09:42:48</code></li>
+              <li class="tl__a tl__a--good" style="--at: 1"><span class="tl__fig">200</span><span class="tl__what">OK in 182 ms</span><code>Attempt 3, 09:43:48</code></li>
+            </ol>
+            <div class="tl__rule" aria-hidden="true"><i class="tl__ink"></i><i class="tl__span tl__span--bad" style="--at: 0; --dur: 0.0233"></i><i class="tl__span tl__span--bad" style="--at: 0.3333; --dur: 0.1111"></i><i class="tl__span tl__span--good" style="--at: 0.998; --dur: 0.002"></i><i class="tl__cursor"></i></div>
+            <div class="tl__dims" aria-hidden="true">
+              <span class="tl__dim" style="--from: 0; --to: 0.3333"><span><code>30 s</code> later</span></span>
+              <span class="tl__dim" style="--from: 0.3333; --to: 1"><span><code>60 s</code> later</span></span>
             </div>
+          </figure>
         </div>
-    </header>
 
-    <!-- Main Content Grid -->
-    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
-
-        <!-- Intro Banner -->
-        <section class="hero-banner border border-emerald-300/20 rounded-3xl p-6 md:p-10 relative overflow-hidden">
-            <div class="hero-grid absolute inset-y-0 right-0 w-2/3 opacity-60 pointer-events-none"></div>
-            <div class="hero-network hero-orbit absolute -right-16 -top-10 w-[28rem] h-[28rem] opacity-70 pointer-events-none"></div>
-            <div class="relative z-10 grid items-center gap-8 lg:grid-cols-[1.05fr_.95fr]">
-                <div class="space-y-5">
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-white/15 text-emerald-50 border border-white/20" id="regionLabel">
-                        <i data-lucide="map-pin" class="w-3.5 h-3.5"></i> Estado de Chihuahua
-                    </span>
-                    <h2 class="max-w-xl text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-6xl" id="heroTitle">
-                        Inteligencia local para decisiones reales.
-                    </h2>
-                    <p class="max-w-xl text-sm leading-relaxed text-emerald-50/90 md:text-base" id="heroDescription">
-                        Explora iniciativas y servicios digitales creados para comunidades, empresas y organizaciones de Chihuahua.
-                    </p>
-                    <div class="flex flex-wrap items-center gap-3 pt-1">
-                        <a class="hero-action" href="#catalog" id="heroAction">
-                            Explorar el catálogo <i data-lucide="arrow-down-right" class="h-4 w-4"></i>
-                        </a>
-                        <span class="text-xs text-white/70" id="heroNote">20 proyectos, 10 servicios de TI</span>
-                    </div>
-                    <div class="cobalt-command" aria-label="Ejemplo de consulta del catálogo">
-                        <code><span aria-hidden="true">$</span> Norteva --buscar "automatización local"</code>
-                        <span class="cobalt-command-status">ready</span>
-                    </div>
-                </div>
-                <div class="hero-map hidden lg:block">
-                    <div class="hero-map-content">
-                        <div class="mb-4 flex items-center justify-between text-xs text-emerald-100/80">
-                            <span id="heroVisualTitle">Norteva / mapa de soluciones</span>
-                            <i data-lucide="compass" class="h-5 w-5 text-emerald-200"></i>
-                        </div>
-                        <div class="hero-map-row"><span id="heroVisualOne">Trabajo y productividad</span><span class="hero-map-count">04</span></div>
-                        <div class="hero-map-row"><span id="heroVisualTwo">Agro y territorio</span><span class="hero-map-count">04</span></div>
-                        <div class="hero-map-row"><span id="heroVisualThree">Comercio y servicios</span><span class="hero-map-count">06</span></div>
-                        <div class="hero-map-row"><span id="heroVisualFour">Industria y gobierno</span><span class="hero-map-count">06</span></div>
-                    </div>
-                </div>
+        <div class="panel" role="tabpanel" id="p-replay" aria-labelledby="t-replay" tabindex="0" hidden="">
+          <p class="panel__say">Send any past event to your endpoint again, straight from the stream.</p>
+          <div class="rp" data-replay="">
+            <canvas class="rp__field" aria-hidden="true"></canvas>
+            <div class="rp__in">
+              <div class="rp__head"><h3 class="rp__title">Replay</h3><code>invoice.paid</code><code class="rp__id">evt_1042</code></div>
+              <dl class="rp__fields">
+                <dt>Event</dt><dd><code>evt_1042, invoice.paid</code></dd>
+                <dt>Destination</dt><dd><code>https://example.com/hooks/billing</code></dd>
+              </dl>
+              <div class="rp__go">
+                <button class="key key--primary" type="button" data-replay-go=""><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-2.64-6.36"></path><path d="M21 3v6h-6"></path></svg>Replay event</button>
+                <span class="rp__hint">Sends the stored payload as it arrived</span>
+              </div>
+              <ol class="rp__log" aria-label="Recent replays" aria-live="polite">
+                <li class="rp__line"><code>09:58:14</code><span>Replayed <code>evt_1042</code></span><code class="ok">200 OK</code><code>164 ms</code></li>
+                <li class="rp__line"><code>09:31:02</code><span>Replayed <code>evt_0987</code></span><code class="ok">200 OK</code><code>201 ms</code></li>
+                <li class="rp__line"><code>08:12:40</code><span>Replayed <code>evt_0961</code></span><code class="ok">200 OK</code><code>176 ms</code></li>
+              </ol>
+              <div class="curl curl--dark" data-copy="curl --json @evt_1042.json https://example.com/hooks/billing">
+                <code class="curl__cmd"><span class="curl__p" aria-hidden="true">$</span>curl --json @evt_1042.json https://example.com/hooks/billing</code>
+                <button class="curl__copy" type="button" aria-label="Copy the same request as curl"><span class="curl__say" aria-live="polite">Copy</span></button>
+              </div>
             </div>
-        </section>
-
-        <div class="cobalt-legend" aria-label="Cómo leer el catálogo">
-            <span><code>IA</code> Soluciones de inteligencia artificial</span>
-            <span><code>TI</code> Servicios de tecnología</span>
-            <span><code>↳</code> Aplicación local</span>
+          </div>
         </div>
 
-        <nav id="catalog" class="flex flex-wrap gap-2 border-b border-slate-800 pb-3" aria-label="Catálogo">
-            <button class="catalog-tab inline-flex items-center gap-2 rounded-lg border border-emerald-400/40 bg-emerald-500/15 px-4 py-2.5 text-sm font-semibold text-emerald-300 transition-colors" data-tab="ai" aria-selected="true">
-                <i data-lucide="sparkles" class="w-4 h-4"></i>
-                <span data-tab-label="ai">Soluciones de IA</span>
-            </button>
-            <button class="catalog-tab inline-flex items-center gap-2 rounded-lg border border-slate-800 bg-slate-900 px-4 py-2.5 text-sm font-semibold text-slate-400 transition-colors" data-tab="it" aria-selected="false">
-                <i data-lucide="code-2" class="w-4 h-4"></i>
-                <span data-tab-label="it">Servicios de TI</span>
-            </button>
-        </nav>
-
-        <!-- Dynamic Container for Levels -->
-        <div id="tiersContainer" class="space-y-12">
-            <!-- Content will be injected by JS -->
+        <div class="panel" role="tabpanel" id="p-in" aria-labelledby="t-in" tabindex="0" hidden="">
+          <p class="panel__say">One address for each provider. Every webhook lands in one stream, whoever sent it.</p>
+          <div class="table-wrap" role="region" aria-label="Sources" tabindex="0">
+            <table class="src">
+              <thead><tr><th scope="col">Source</th><th scope="col">Posts to</th><th scope="col">Event types seen</th><th scope="col" class="r">Last event</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">shop.example.com</th><td><code>relay.example.com/in/shop</code></td><td><code>order.created</code> <code>order.shipped</code></td><td class="r"><code>09:42:31</code></td></tr>
+                <tr class="is-on"><th scope="row">billing.example.com</th><td><code>relay.example.com/in/billing</code></td><td><code>invoice.paid</code> <code>refund.issued</code></td><td class="r"><code>09:42:18</code></td></tr>
+                <tr><th scope="row">crm.example.com</th><td><code>relay.example.com/in/crm</code></td><td><code>customer.updated</code> <code>contact.merged</code></td><td class="r"><code>09:41:55</code></td></tr>
+                <tr><th scope="row">forms.example.com</th><td><code>relay.example.com/in/forms</code></td><td><code>form.submitted</code></td><td class="r"><code>09:39:40</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="src__out">All four deliver to <code>https://example.com/hooks</code></p>
         </div>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="border-t border-slate-800 bg-slate-900/40 py-8 mt-12">
-        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500 space-y-2">
-            <p id="footerCopyright">© 2026 Norteva | IA Local para Chihuahua.</p>
-            <p class="text-slate-600" id="footerDescription">Una selección de iniciativas para el desarrollo industrial, agrícola, comercial y social del estado.</p>
+      </div>
+      <div class="project-category">
+        <div class="project-category__head">
+          <div>
+            <p class="project-category__eyebrow">Category 03</p>
+            <h3>Commerce and services</h3>
+          </div>
+          <span class="project-category__badge">Soluciones para la vida cotidiana</span>
         </div>
-    </footer>
+        <div class="project-grid" aria-label="Commerce and services projects">
+          <article class="project-card">
+            <div class="project-card__top"><span class="project-card__tag">Gastronomía &amp; Servicios</span><span class="project-card__roi">Inmediato</span></div>
+            <h3>Asistente de Pedidos por WhatsApp para Restaurantes</h3>
+            <p>Agente inteligente para tomar pedidos, gestionar reservaciones de grupos grandes y procesar pagos vía SPEI o MercadoPago.</p>
+            <dl><div><dt>Para</dt><dd>Restaurantes de ticket medio-alto.</dd></div><div><dt>Zona</dt><dd>Distrito 1 / Juárez / Centro</dd></div></dl>
+          </article>
+          <article class="project-card">
+            <div class="project-card__top"><span class="project-card__tag">Ganadería / Exportación</span><span class="project-card__roi">Medio plazo</span></div>
+            <h3>Trazabilidad y Certificación Ganadera de Exportación</h3>
+            <p>Sistema que automatiza el registro de aretes SINIIGA, vacunas y control de engorda mediante comandos de voz en campo.</p>
+            <dl><div><dt>Para</dt><dd>Asociaciones ganaderas y ranchos de exportación.</dd></div><div><dt>Zona</dt><dd>Soberanía Ganadera Estatal</dd></div></dl>
+          </article>
+          <article class="project-card">
+            <div class="project-card__top"><span class="project-card__tag">Retail / Supermercados</span><span class="project-card__roi">Trimestral</span></div>
+            <h3>Predicción de Inventario para Cadenas Locales</h3>
+            <p>Algoritmo de predicción de demanda que analiza pagos quincenales, clima y eventos festivos para reducir mermas de perecederos.</p>
+            <dl><div><dt>Para</dt><dd>Supermercados regionales y mayoristas.</dd></div><div><dt>Zona</dt><dd>Estado de Chihuahua</dd></div></dl>
+          </article>
+          <article class="project-card">
+            <div class="project-card__top"><span class="project-card__tag">Agroindustria Láctea</span><span class="project-card__roi">Medio plazo</span></div>
+            <h3>Optimizador de Rendimiento para Envasadoras Lácteas</h3>
+            <p>Analítica predictiva para optimizar maduración, temperatura y lotes según la estacionalidad regional.</p>
+            <dl><div><dt>Para</dt><dd>Queserías e industrias lácteas.</dd></div><div><dt>Zona</dt><dd>Cuauhtémoc / Campos Menonitas</dd></div></dl>
+          </article>
+          <article class="project-card">
+            <div class="project-card__top"><span class="project-card__tag">Marketing / Retail</span><span class="project-card__roi">Inmediato</span></div>
+            <h3>Fidelización vía Wallet Digital para Comercio</h3>
+            <p>Plataforma que reemplaza tarjetas físicas por pases dinámicos en Apple Wallet y Google Wallet con promociones automatizadas.</p>
+            <dl><div><dt>Para</dt><dd>Cafeterías, boutiques y restaurantes locales.</dd></div><div><dt>Zona</dt><dd>Chihuahua / Juárez</dd></div></dl>
+          </article>
+          <article class="project-card">
+            <div class="project-card__top"><span class="project-card__tag">Logística Urbana</span><span class="project-card__roi">Inmediato</span></div>
+            <h3>Gestor de Flotillas y Repartidores para Negocios Locales</h3>
+            <p>Sistema de optimización de rutas para refaccionarias, farmacias y ferreterías con reparto propio.</p>
+            <dl><div><dt>Para</dt><dd>Comercios con flotilla de entrega propia.</dd></div><div><dt>Zona</dt><dd>Chihuahua / Juárez</dd></div></dl>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- JavaScript Application Logic -->
-    <script>
-        // Data Structure with all 20 Projects categorized into Tiers
-        const projectData = [
-            {
-                tier: 1,
-                title: "Trabajo y productividad",
-                badge: "Personas, empresas y organizaciones",
-                badgeColor: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
-                borderColor: "border-emerald-500/30",
-                icon: "zap",
-                projects: [
-                    {
-                        id: 1,
-                        name: "Reclutamiento Masivo y Filtrado por WhatsApp",
-                        tag: "Recursos Humanos / Maquila",
-                        margin: "85%",
-                        roi: "Inmediato",
-                        zones: "Juárez / Chihuahua",
-                        description: "Bot conversacional inteligente en WhatsApp optimizado para pre-filtrar, evaluar candidatos operativos, validar referencias y coordinar turnos para plantas maquiladoras y comercio masivo.",
-                        market: "Agencias de RH y plantas maquiladoras en Ciudad Juárez y Chihuahua Capital.",
-                        businessModel: "Cobro por candidato calificado contratado o suscripción mensual por planta."
-                    },
-                    {
-                        id: 2,
-                        name: "Auditor de Eficiencia Energética para Negocios (CFE)",
-                        tag: "Gestión Energética",
-                        margin: "80%",
-                        roi: "< 30 Días",
-                        zones: "Estado de Chihuahua",
-                        description: "Software de análisis que se conecta a medidores para mitigar el alto costo de energía eléctrica por aires acondicionados en verano, recomendando pautas operativas óptimas en tarifas CFE.",
-                        market: "Hoteles, hospitales privados, plazas comerciales e industrias ligeras con clima intensivo.",
-                        businessModel: "Licencia de software mensual o comisión sobre el ahorro de energía generado (% sobre el ahorro)."
-                    },
-                    {
-                        id: 3,
-                        name: "Asistente Legal de Contratos Inmobiliarios",
-                        tag: "Bienes Raíces / PropTech",
-                        margin: "90%",
-                        roi: "Inmediato",
-                        zones: "Cantera / San Francisco / Juárez",
-                        description: "Herramienta que redacta y revisa contratos de arrendamiento y compraventa adaptados rigurosamente al Código Civil del Estado de Chihuahua, blindando a propietarios e inmobiliarias.",
-                        market: "Agencias inmobiliarias, desarrolladores y asesores independientes en zonas de alta plusvalía.",
-                        businessModel: "Pago por contrato generado o iguala mensual por agencia inmobiliaria."
-                    },
-                    {
-                        id: 4,
-                        name: "Plataforma de Capacitación y Prevención de Extorsión por IA",
-                        tag: "Ciberseguridad",
-                        margin: "85%",
-                        roi: "Corto Plazo",
-                        zones: "Chihuahua / Juárez / Delicias",
-                        description: "Simulador interactivo corporativo para entrenar al personal contra clonación de voz por IA, fraudes telefónicos locales y phishing altamente contextualizado.",
-                        market: "Empresas afiliadas a COPARMEX, CANACO y departamentos de TI corporativos.",
-                        businessModel: "Venta de talleres ejecutivos + licenciamiento de la plataforma de simulación."
-                    }
-                ]
-            },
-            {
-                tier: 2,
-                title: "Agro y territorio",
-                badge: "Campo, agua y comercio exterior",
-                badgeColor: "bg-blue-500/10 text-blue-400 border-blue-500/20",
-                borderColor: "border-blue-500/30",
-                icon: "trending-up",
-                projects: [
-                    {
-                        id: 5,
-                        name: "Asistente de Cumplimiento Aduanero (Anexo 24/31)",
-                        tag: "Comercio Exterior / Maquila",
-                        margin: "80%",
-                        roi: "Medio Plazo",
-                        zones: "Juárez / Chihuahua",
-                        description: "Motor RAG de auditoría preventiva en tiempo real conectado a ERPs que valida inventarios temporales y reglas aduaneras, evitando multas millonarias del SAT y US Customs.",
-                        market: "Plantas maquiladoras de los sectores automotriz, médico y electrónico.",
-                        businessModel: "Suscripción anual enterprise por planta o volumen de operaciones."
-                    },
-                    {
-                        id: 6,
-                        name: "Monitor de Riego y Estrés Hídrico por Visión Satelital",
-                        tag: "Agrotech / Sustentabilidad",
-                        margin: "75%",
-                        roi: "Por Ciclo Agrícola",
-                        zones: "Cuauhtémoc / Delicias / Camargo",
-                        description: "Plataforma para productores agrícolas que cruza imágenes satelitales multiespectrales con modelos de IA para indicar la dosis y momento exacto de riego ante sequías extremas.",
-                        market: "Productores manzaneros de Cuauhtémoc y nueceros de Delicias/Camargo.",
-                        businessModel: "Suscripción por hectárea monitoreada por ciclo de cultivo."
-                    },
-                    {
-                        id: 7,
-                        name: "Asistente Experto en Plagas para Manzana y Nuez",
-                        tag: "Agrotech",
-                        margin: "85%",
-                        roi: "Inmediato en Campo",
-                        zones: "Zona Manzanera y Nocera",
-                        description: "Aplicación móvil de diagnóstico por visión computacional que identifica plagas o deficiencias nutricionales específicas en cultivos locales y receta el insumo exacto.",
-                        market: "Ingenieros agrónomos independientes, asociaciones de agricultores y distribuidores de agroquímicos.",
-                        businessModel: "Cobro B2C por usuario o licencia de marca blanca para proveedores de agroquímicos."
-                    },
-                    {
-                        id: 8,
-                        name: "Tutor Adaptativo para Exámenes UACH / ITCH",
-                        tag: "EdTech",
-                        margin: "90%",
-                        roi: "Por Temporada de Admisión",
-                        zones: "Chihuahua / Delicias / Parral",
-                        description: "Plataforma de aprendizaje adaptativo que diagnostica y entrena a estudiantes en las áreas exactas evaluadas en el exani de ingreso a la UACH e Institutos Tecnológicos.",
-                        market: "Aspirantes universitarios, padres de familia y preparatorias privadas.",
-                        businessModel: "Suscripción B2C por periodo de preparación o licenciamiento a colegios privados."
-                    }
-                ]
-            },
-            {
-                tier: 3,
-                title: "Comercio y servicios",
-                badge: "Soluciones para la vida cotidiana",
-                badgeColor: "bg-amber-500/10 text-amber-400 border-amber-500/20",
-                borderColor: "border-amber-500/30",
-                icon: "shopping-bag",
-                projects: [
-                    {
-                        id: 9,
-                        name: "Asistente de Pedidos por WhatsApp para Restaurantes",
-                        tag: "Gastronomía & Servicios",
-                        margin: "70%",
-                        roi: "Inmediato",
-                        zones: "Distrito 1 / Juárez / Centro",
-                        description: "Agente inteligente capacitado para tomar pedidos, gestionar reservaciones de grupos grandes y procesar pagos vía SPEI/MercadoPago para restaurantes con alto volumen.",
-                        market: "Restaurantes de ticket medio-alto en corredores gastronómicos de Chihuahua y Juárez.",
-                        businessModel: "Iguala mensual fija por sucursal ($1,500 - $3,000 MXN)."
-                    },
-                    {
-                        id: 10,
-                        name: "Trazabilidad y Certificación Ganadera de Exportación",
-                        tag: "Ganadería / Exportación",
-                        margin: "75%",
-                        roi: "Medio Plazo",
-                        zones: "Soberanía Ganadera Estatal",
-                        description: "Sistema para ganaderos que automatiza el registro de aretes SINIIGA, vacunas y control de engorda mediante comandos de voz en campo para cumplir con estándares de EE. UU.",
-                        market: "Asociaciones ganaderas locales y ranchos de registro/exportación.",
-                        businessModel: "Pago por cabeza de ganado registrada o suscripción anual por rancho."
-                    },
-                    {
-                        id: 11,
-                        name: "Predicción de Inventario para Cadenas Locales",
-                        tag: "Retail / Supermercados",
-                        margin: "65%",
-                        roi: "Trimestral",
-                        zones: "Estado de Chihuahua",
-                        description: "Algoritmo de predicción de demanda para supermercados locales que analiza patrones de pago quincenales, clima y eventos festivos para minimizar mermas de perecederos.",
-                        market: "Supermercados regionales (ej. Alsuper independientes) y distribuidoras mayoristas.",
-                        businessModel: "Licencia mensual por tienda o porcentaje sobre la reducción de merma."
-                    },
-                    {
-                        id: 12,
-                        name: "Optimizador de Rendimiento para Envasadoras Lácteas",
-                        tag: "Agroindustria Láctea",
-                        margin: "60%",
-                        roi: "Medio Plazo",
-                        zones: "Cuauhtémoc (Campos Menonitas)",
-                        description: "Sistema de analítica predictiva para plantas queseras y lácteas que optimiza el proceso de maduración, control de temperatura y lotes según la estacionalidad regional.",
-                        market: "Queserías e industrias lácteas artesanales e industriales en la región menonita.",
-                        businessModel: "Costo de implementación + contrato de soporte e iguala continua."
-                    },
-                    {
-                        id: 13,
-                        name: "Fidelización vía Wallet Digital (Sin App) para Comercio",
-                        tag: "Marketing / Retail",
-                        margin: "80%",
-                        roi: "Inmediato",
-                        zones: "Chihuahua / Juárez",
-                        description: "Plataforma que reemplaza las tarjetas de lealtad físicas por pases dinámicos en Apple Wallet y Google Wallet con promociones automatizadas por conducta.",
-                        market: "Cafeterías, boutiques, salones de belleza y restaurantes locales.",
-                        businessModel: "Suscripción mensual Micro-SaaS ($800 - $1,500 MXN/mes por negocio)."
-                    },
-                    {
-                        id: 14,
-                        name: "Gestor de Flotillas y Repartidores para Negocios Locales",
-                        tag: "Logística Urbana",
-                        margin: "60%",
-                        roi: "Inmediato",
-                        zones: "Chihuahua / Juárez",
-                        description: "Sistema de optimización de rutas de reparto para refaccionarias, farmacias y ferreterías que permite competir contra entregas express sin depender de plataformas de terceros.",
-                        market: "Comercios con flotilla de entrega propia que atienden entregas a domicilio.",
-                        businessModel: "Cobro por vehículo rastreado o comisión por paquete despachado."
-                    }
-                ]
-            },
-            {
-                tier: 4,
-                title: "Industria, gobierno y turismo",
-                badge: "Infraestructura, servicios y experiencias",
-                badgeColor: "bg-rose-500/10 text-rose-400 border-rose-500/20",
-                borderColor: "border-rose-500/30",
-                icon: "shield-alert",
-                projects: [
-                    {
-                        id: 15,
-                        name: "Control de Calidad Visual con Edge AI en Línea",
-                        tag: "Manufactura / Vision AI",
-                        margin: "45%",
-                        roi: "Largo Plazo",
-                        zones: "Parques Industriales",
-                        description: "Visión artificial integrada en la línea de ensamble con cámaras y GPUs locales para detectar defectos milimétricos en piezas moldeadas o arneses automotrices.",
-                        market: "Proveedores Tier 2 y Tier 3 de la industria maquiladora.",
-                        businessModel: "Venta de hardware e integración + licencia del software de visión."
-                    },
-                    {
-                        id: 16,
-                        name: "Predictor de Mantenimiento para Maquinaria Minera",
-                        tag: "Minería / IoT",
-                        margin: "50%",
-                        roi: "Largo Plazo",
-                        zones: "Parral / Santa Bárbara / Ojinaga",
-                        description: "Sistema de telemetría e IA que procesa datos de camiones de extracción y perforadoras para predecir fallas críticas antes de que interrumpan la operación minera.",
-                        market: "Empresas mineras y contratistas de maquinaria pesada en el estado.",
-                        businessModel: "Suscripción por equipo monitoreado + servicios de implementación en mina."
-                    },
-                    {
-                        id: 17,
-                        name: "Optimizador de Rutas Carga Transfronteriza (Juárez - El Paso)",
-                        tag: "Logística Internacional",
-                        margin: "70%",
-                        roi: "Medio Plazo",
-                        zones: "Puentes Internacionales Juárez",
-                        description: "Plataforma que predice tiempos de espera en cruces internacionales combinando clima, tráfico y datos históricos para redirigir camiones y evitar multas por demora.",
-                        market: "Empresas de autotransporte de carga transfronteriza y agencias aduanales.",
-                        businessModel: "Suscripción por flotilla de camiones activa."
-                    },
-                    {
-                        id: 18,
-                        name: "Ventanilla Digital y Procesamiento de Documentos Municipal",
-                        tag: "GovTech",
-                        margin: "80%",
-                        roi: "Ciclo Licitación",
-                        zones: "Municipios de Chihuahua",
-                        description: "Plataforma para municipios que valida y extrae datos de documentos oficiales automáticamente para licencias de funcionamiento y permisos de construcción.",
-                        market: "Gobiernos municipales y notarías públicas.",
-                        businessModel: "Licitación pública o venta directa por contrato de servicios gubernamental."
-                    },
-                    {
-                        id: 19,
-                        name: "Plataforma de Análisis de Sentimiento y Quejas Ciudadanas",
-                        tag: "GovTech",
-                        margin: "85%",
-                        roi: "Ciclo Licitación",
-                        zones: "Chihuahua Capital / Juárez",
-                        description: "Sistema que rastrea redes sociales y reportes de atención ciudadana para mapear, clasificar y priorizar baches, alumbrado y servicios según su urgencia geográfica.",
-                        market: "Direcciones de Comunicación Social y Obras Públicas de ayuntamientos.",
-                        businessModel: "Contrato anual de software gubernamental."
-                    },
-                    {
-                        id: 20,
-                        name: "Conserje Virtual e Inteligente para la Ruta del Vino",
-                        tag: "Turismo & Hostelería",
-                        margin: "70%",
-                        roi: "Estacional",
-                        zones: "Delicias / Sacramento / Encinillas",
-                        description: "Asistente inteligente para la Ruta del Vino Chihuahuense que sugiere maridajes, agenda catas y conecta al visitante con hoteles y experiencias gastronómicas locales.",
-                        market: "Asociación de Vitivinicultores de Chihuahua y viñedos participantes.",
-                        businessModel: "Comisión por reserva realizada + cuota de suscripción anual por viñedo."
-                    }
-                ]
-            }
-        ];
+  <section class="offer offer--projects" id="pricing" aria-labelledby="s5">
+    <div class="container">
+      <div class="project-category">
+        <div class="project-category__head">
+          <div>
+            <p class="project-category__eyebrow">Category 04</p>
+            <h2 id="s5">Industry, government, and tourism</h2>
+          </div>
+          <span class="project-category__badge">Infrastructure, services, and experiences</span>
+        </div>
+        <div class="project-grid" aria-label="Industry, government, and tourism projects">
+          <article class="project-card">
+            <div class="project-card__top"><span class="project-card__tag">Manufactura / Vision AI</span><span class="project-card__roi">Largo plazo</span></div>
+            <h3>Control de Calidad Visual con Edge AI en Línea</h3>
+            <p>Visión artificial integrada en la línea de ensamble con cámaras y GPUs locales para detectar defectos milimétricos en piezas moldeadas o arneses automotrices.</p>
+            <dl><div><dt>Para</dt><dd>Proveedores Tier 2 y Tier 3 de la industria maquiladora.</dd></div><div><dt>Zona</dt><dd>Parques industriales</dd></div></dl>
+          </article>
+          <article class="project-card">
+            <div class="project-card__top"><span class="project-card__tag">Minería / IoT</span><span class="project-card__roi">Largo plazo</span></div>
+            <h3>Predictor de Mantenimiento para Maquinaria Minera</h3>
+            <p>Sistema de telemetría e IA que procesa datos de camiones de extracción y perforadoras para predecir fallas críticas antes de interrumpir la operación.</p>
+            <dl><div><dt>Para</dt><dd>Empresas mineras y contratistas de maquinaria pesada.</dd></div><div><dt>Zona</dt><dd>Parral / Santa Bárbara / Ojinaga</dd></div></dl>
+          </article>
+          <article class="project-card">
+            <div class="project-card__top"><span class="project-card__tag">Logística Internacional</span><span class="project-card__roi">Medio plazo</span></div>
+            <h3>Optimizador de Rutas de Carga Transfronteriza</h3>
+            <p>Plataforma que predice tiempos de espera en cruces internacionales combinando clima, tráfico y datos históricos para redirigir camiones.</p>
+            <dl><div><dt>Para</dt><dd>Empresas de autotransporte y agencias aduanales.</dd></div><div><dt>Zona</dt><dd>Puentes Internacionales Juárez</dd></div></dl>
+          </article>
+          <article class="project-card">
+            <div class="project-card__top"><span class="project-card__tag">GovTech</span><span class="project-card__roi">Ciclo de licitación</span></div>
+            <h3>Ventanilla Digital y Procesamiento de Documentos Municipal</h3>
+            <p>Plataforma que valida y extrae datos de documentos oficiales para licencias de funcionamiento y permisos de construcción.</p>
+            <dl><div><dt>Para</dt><dd>Gobiernos municipales y notarías públicas.</dd></div><div><dt>Zona</dt><dd>Municipios de Chihuahua</dd></div></dl>
+          </article>
+          <article class="project-card">
+            <div class="project-card__top"><span class="project-card__tag">GovTech</span><span class="project-card__roi">Ciclo de licitación</span></div>
+            <h3>Análisis de Sentimiento y Quejas Ciudadanas</h3>
+            <p>Sistema que rastrea redes sociales y reportes de atención ciudadana para priorizar baches, alumbrado y servicios según su urgencia geográfica.</p>
+            <dl><div><dt>Para</dt><dd>Direcciones de Comunicación Social y Obras Públicas.</dd></div><div><dt>Zona</dt><dd>Chihuahua Capital / Juárez</dd></div></dl>
+          </article>
+          <article class="project-card">
+            <div class="project-card__top"><span class="project-card__tag">Turismo &amp; Hostelería</span><span class="project-card__roi">Estacional</span></div>
+            <h3>Conserje Virtual para la Ruta del Vino</h3>
+            <p>Asistente inteligente que sugiere maridajes, agenda catas y conecta visitantes con hoteles y experiencias gastronómicas locales.</p>
+            <dl><div><dt>Para</dt><dd>Vitivinicultores y viñedos participantes.</dd></div><div><dt>Zona</dt><dd>Delicias / Sacramento / Encinillas</dd></div></dl>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        const itServicesData = [
-            {
-                tier: 1,
-                title: 'Desarrollo de software a la medida',
-                badge: 'Aplicaciones, APIs y automatización',
-                badgeColor: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20',
-                borderColor: 'border-cyan-500/30',
-                icon: 'code-2',
-                projects: [
-                    { id: 'A', name: 'Aplicaciones web progresivas y portales empresariales', tag: 'PWA / Web Apps', description: 'Desarrollo de aplicaciones web modernas, rápidas y adaptables a dispositivos móviles sin necesidad de publicar en tiendas de aplicaciones.', market: 'Portales de clientes, paneles de gestión interna, sistemas de inventario y plataformas de cotizaciones en tiempo real.', zones: 'React / Next.js / Vue.js, Node.js / Spring Boot, PostgreSQL' },
-                    { id: 'B', name: 'Microservicios y APIs RESTful / GraphQL', tag: 'Arquitectura de software', description: 'Diseño, construcción y documentación de arquitecturas escalables para conectar sistemas independientes o modernizar plataformas legadas.', market: 'Integración de pasarelas de pago, conexión de ERP/CRM con frontend y unificación de bases de datos.', zones: 'Java / Spring Boot, Node.js / Express, Docker, Swagger / OpenAPI' },
-                    { id: 'C', name: 'Automatización de procesos con bots y scraping', tag: 'RPA / Web Automation', description: 'Creación de scripts y bots que automatizan tareas repetitivas en navegadores, archivos de Excel o sistemas sin API expuesta.', market: 'Extracción de precios, conciliación bancaria y facturación automática, y llenado de formularios.', zones: 'Python, Playwright, Selenium, Beautiful Soup, Node.js' }
-                ]
-            },
-            {
-                tier: 2,
-                title: 'Infraestructura cloud, DevOps y bases de datos',
-                badge: 'Operación, escalabilidad y continuidad',
-                badgeColor: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
-                borderColor: 'border-blue-500/30',
-                icon: 'cloud-cog',
-                projects: [
-                    { id: 'D', name: 'Migración y optimización en la nube', tag: 'Cloud Architecture', description: 'Asesoría e implementación para mover servidores locales a la nube o reestructurar arquitecturas cloud para mejorar costos y rendimiento.', market: 'Migración de bases de datos, configuración de balanceadores de carga y optimización de facturas cloud.', zones: 'AWS, Azure, Google Cloud Platform (GCP)' },
-                    { id: 'E', name: 'Pipelines CI/CD y despliegue automatizado', tag: 'DevOps', description: 'Automatización del ciclo de vida del software para probar y desplegar cada cambio sin interrupciones ni errores manuales.', market: 'Ambientes de pruebas y producción, análisis estático de código y despliegues con contenedores.', zones: 'GitHub Actions, GitLab CI, Docker, Kubernetes' },
-                    { id: 'F', name: 'Optimización, respaldo y mantenimiento de bases de datos', tag: 'Data Operations', description: 'Diagnóstico de rendimiento, tuning de consultas, políticas de réplica, respaldos automatizados y recuperación ante desastres.', market: 'Sistemas ERP y puntos de venta con problemas de lentitud o necesidades de continuidad operativa.', zones: 'PostgreSQL, MySQL, SQL Server, Redis, MongoDB' }
-                ]
-            },
-            {
-                tier: 3,
-                title: 'Integración, ciberseguridad y calidad',
-                badge: 'Protección y confiabilidad del software',
-                badgeColor: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
-                borderColor: 'border-amber-500/30',
-                icon: 'shield-check',
-                projects: [
-                    { id: 'G', name: 'Auditoría de ciberseguridad básica y hardening', tag: 'Ciberseguridad', description: 'Evaluación de vulnerabilidades en aplicaciones web y servidores, aplicación de parches y configuración de buenas prácticas.', market: 'Protección contra inyecciones SQL y XSS, servidores expuestos a internet, SSL/TLS y firewalls.', zones: 'Nmap, OWASP ZAP, Cloudflare, VPNs corporativas' },
-                    { id: 'H', name: 'Pruebas automatizadas de software', tag: 'QA Automation', description: 'Creación de suites de pruebas funcionales y de carga para asegurar que las aplicaciones funcionen antes de lanzamientos críticos.', market: 'Pruebas de estrés para e-commerce y validación de flujos de pago y registro.', zones: 'JUnit, Cypress, Playwright, JMeter' }
-                ]
-            },
-            {
-                tier: 4,
-                title: 'Soporte especializado e integraciones B2B',
-                badge: 'Continuidad, mantenimiento e integración',
-                badgeColor: 'bg-violet-500/10 text-violet-400 border-violet-500/20',
-                borderColor: 'border-violet-500/30',
-                icon: 'handshake',
-                projects: [
-                    { id: 'I', name: 'Mantenimiento evolutivo y correctivo de software legacy', tag: 'Legacy Support', description: 'Soporte técnico y refactorización para sistemas antiguos que las empresas necesitan mantener y modernizar.', market: 'Corrección de bugs en sistemas Java/PHP, actualización de dependencias y migración de bases de datos legadas.', zones: 'Java, PHP, bases de datos relacionales y sistemas empresariales' },
-                    { id: 'J', name: 'Integración con pagos y facturación electrónica', tag: 'Payments / CFDI', description: 'Conexión de sistemas existentes con PACs de facturación y procesamiento de pagos con tarjetas o transferencias.', market: 'Cobros recurrentes y generación automática de facturas PDF/XML después de una compra web.', zones: 'Stripe, Mercado Pago, Facturapi, Finkok' }
-                ]
-            }
-        ];
+  <section class="offer offer--projects" id="custom-software" aria-labelledby="s7">
+    <div class="container">
+      <div class="project-category">
+        <div class="project-category__head">
+          <div>
+            <p class="project-category__eyebrow">IT services / Category 01</p>
+            <h2 id="s7">Custom software development</h2>
+          </div>
+          <span class="project-category__badge">Applications, APIs, and automation</span>
+        </div>
+        <div class="project-grid" aria-label="Custom software development services">
+          <article class="project-card">
+            <div class="project-card__top"><span class="project-card__tag">PWA / Web Apps</span><span class="project-card__roi">A medida</span></div>
+            <h3>Aplicaciones web progresivas y portales empresariales</h3>
+            <p>Desarrollo de aplicaciones web modernas, rápidas y adaptables a dispositivos móviles sin necesidad de publicar en tiendas de aplicaciones.</p>
+            <dl><div><dt>Uso</dt><dd>Portales de clientes, gestión interna e inventarios.</dd></div><div><dt>Stack</dt><dd>React / Next.js / Vue.js, Node.js / Spring Boot</dd></div></dl>
+          </article>
+          <article class="project-card">
+            <div class="project-card__top"><span class="project-card__tag">Arquitectura de software</span><span class="project-card__roi">Escalable</span></div>
+            <h3>Microservicios y APIs RESTful / GraphQL</h3>
+            <p>Diseño, construcción y documentación de arquitecturas escalables para conectar sistemas independientes o modernizar plataformas legadas.</p>
+            <dl><div><dt>Uso</dt><dd>Pagos, ERP, CRM y unificación de bases de datos.</dd></div><div><dt>Stack</dt><dd>Java / Spring Boot, Node.js / Express, Docker</dd></div></dl>
+          </article>
+          <article class="project-card">
+            <div class="project-card__top"><span class="project-card__tag">RPA / Web Automation</span><span class="project-card__roi">Repetible</span></div>
+            <h3>Automatización de procesos con bots y scraping</h3>
+            <p>Creación de scripts y bots que automatizan tareas repetitivas en navegadores, archivos de Excel o sistemas sin API expuesta.</p>
+            <dl><div><dt>Uso</dt><dd>Precios, conciliación bancaria, facturación y formularios.</dd></div><div><dt>Stack</dt><dd>Python, Playwright, Selenium, Beautiful Soup</dd></div></dl>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        const translations = {
-            es: {
-                pageTitle: 'Norteva | IA Local para Chihuahua',
-                headerTitle: 'Norteva',
-                headerSubtitle: 'IA local para Chihuahua',
-                searchPlaceholder: 'Buscar proyecto o zona...',
-                aiProjects: '20 proyectos',
-                itProjects: '10 servicios',
-                tabs: { ai: 'Soluciones de IA', it: 'Servicios de TI' },
-                summary: { ai: ['20 proyectos', '4 áreas de impacto', 'Enfoque local'], it: ['10 servicios', '4 áreas de servicio', 'Capacidades digitales'] },
-                region: 'Estado de Chihuahua',
-                heroTitle: 'Inteligencia local para decisiones reales.',
-                heroDescription: 'Explora iniciativas y servicios digitales creados para comunidades, empresas y organizaciones de Chihuahua.',
-                itHeroTitle: 'Tecnología local para organizaciones.',
-                itHeroDescription: 'Encuentra servicios para crear, modernizar, proteger y operar soluciones digitales en Chihuahua.',
-                heroAction: 'Explorar el catálogo',
-                heroNote: '20 proyectos, 10 servicios de TI',
-                heroVisualTitle: 'Norteva / mapa de soluciones',
-                heroVisual: {
-                    ai: [['Trabajo y productividad', '04'], ['Agro y territorio', '04'], ['Comercio y servicios', '06'], ['Industria y gobierno', '06']],
-                    it: [['Desarrollo de software', '03'], ['Cloud y DevOps', '03'], ['Ciberseguridad y calidad', '02'], ['Soporte e integraciones', '02']]
-                },
-                audience: 'A quién sirve',
-                locations: 'Dónde se aplica',
-                useCases: 'Casos de uso',
-                technologies: 'Tecnologías',
-                noResults: 'No se encontraron proyectos',
-                noResultsDescription: 'Prueba con otros términos como “maquila”, “WhatsApp” o “Cuauhtémoc”.',
-                footerCopyright: '© 2026 Norteva | IA Local para Chihuahua.',
-                footerDescription: 'Una selección de iniciativas para el desarrollo industrial, agrícola, comercial y social del estado.',
-                themeToLight: 'Cambiar a modo claro',
-                themeToDark: 'Cambiar a modo oscuro',
-                categories: [
-                    ['Trabajo y productividad', 'Personas, empresas y organizaciones'],
-                    ['Agro y territorio', 'Campo, agua y comercio exterior'],
-                    ['Comercio y servicios', 'Soluciones para la vida cotidiana'],
-                    ['Industria, gobierno y turismo', 'Infraestructura, servicios y experiencias']
-                ],
-                itCategories: [
-                    ['Desarrollo de software a la medida', 'Aplicaciones, APIs y automatización'],
-                    ['Infraestructura cloud, DevOps y bases de datos', 'Operación, escalabilidad y continuidad'],
-                    ['Integración, ciberseguridad y calidad', 'Protección y confiabilidad del software'],
-                    ['Soporte especializado e integraciones B2B', 'Continuidad, mantenimiento e integración']
-                ]
-            },
-            en: {
-                pageTitle: 'Norteva | Local AI for Chihuahua',
-                headerTitle: 'Norteva',
-                headerSubtitle: 'Local AI for Chihuahua',
-                searchPlaceholder: 'Search project or location...',
-                aiProjects: '20 projects',
-                itProjects: '10 services',
-                tabs: { ai: 'AI Solutions', it: 'IT Services' },
-                summary: { ai: ['20 projects', '4 impact areas', 'Local focus'], it: ['10 services', '4 service areas', 'Digital capabilities'] },
-                region: 'State of Chihuahua',
-                heroTitle: 'Local intelligence for real decisions.',
-                heroDescription: 'Explore digital initiatives and services created for Chihuahua communities, businesses, and organizations.',
-                itHeroTitle: 'Local technology for organizations.',
-                itHeroDescription: 'Find services to build, modernize, protect, and operate digital solutions across Chihuahua.',
-                heroAction: 'Explore the catalog',
-                heroNote: '20 projects, 10 IT services',
-                heroVisualTitle: 'Norteva / solutions map',
-                heroVisual: {
-                    ai: [['Work and productivity', '04'], ['Agriculture and territory', '04'], ['Commerce and services', '06'], ['Industry and government', '06']],
-                    it: [['Custom software', '03'], ['Cloud and DevOps', '03'], ['Cybersecurity and quality', '02'], ['Support and integrations', '02']]
-                },
-                audience: 'Who it serves',
-                locations: 'Where it applies',
-                useCases: 'Use cases',
-                technologies: 'Technologies',
-                noResults: 'No projects found',
-                noResultsDescription: 'Try terms such as “manufacturing”, “WhatsApp”, or “Cuauhtémoc”.',
-                footerCopyright: '© 2026 Norteva | Local AI for Chihuahua.',
-                footerDescription: 'A selection of initiatives for the state’s industrial, agricultural, commercial, and social development.',
-                themeToLight: 'Switch to light mode',
-                themeToDark: 'Switch to dark mode',
-                categories: [
-                    ['Work and productivity', 'People, businesses, and organizations'],
-                    ['Agriculture and territory', 'Farming, water, and foreign trade'],
-                    ['Commerce and services', 'Solutions for everyday life'],
-                    ['Industry, government, and tourism', 'Infrastructure, services, and experiences']
-                ],
-                itCategories: [
-                    ['Custom software development', 'Applications, APIs, and automation'],
-                    ['Cloud infrastructure, DevOps, and databases', 'Operations, scalability, and continuity'],
-                    ['Integration, cybersecurity, and quality', 'Software protection and reliability'],
-                    ['Specialized support and B2B integrations', 'Continuity, maintenance, and integration']
-                ]
-            }
-        };
+  <section class="offer offer--projects" id="cloud-devops" aria-labelledby="s8">
+    <div class="container">
+      <div class="project-category">
+        <div class="project-category__head">
+          <div>
+            <p class="project-category__eyebrow">IT services / Category 02</p>
+            <h2 id="s8">Cloud infrastructure, DevOps, and databases</h2>
+          </div>
+          <span class="project-category__badge">Operations, scalability, and continuity</span>
+        </div>
+        <div class="project-grid" aria-label="Cloud infrastructure, DevOps, and databases services">
+          <article class="project-card">
+            <div class="project-card__top"><span class="project-card__tag">Cloud Architecture</span><span class="project-card__roi">Optimización</span></div>
+            <h3>Migración y optimización en la nube</h3>
+            <p>Asesoría e implementación para mover servidores locales a la nube o reestructurar arquitecturas cloud para mejorar costos y rendimiento.</p>
+            <dl><div><dt>Uso</dt><dd>Bases de datos, balanceadores y costos cloud.</dd></div><div><dt>Stack</dt><dd>AWS, Azure, Google Cloud Platform</dd></div></dl>
+          </article>
+          <article class="project-card">
+            <div class="project-card__top"><span class="project-card__tag">DevOps</span><span class="project-card__roi">Continuo</span></div>
+            <h3>Pipelines CI/CD y despliegue automatizado</h3>
+            <p>Automatización del ciclo de vida del software para probar y desplegar cada cambio sin interrupciones ni errores manuales.</p>
+            <dl><div><dt>Uso</dt><dd>Pruebas, producción y despliegues con contenedores.</dd></div><div><dt>Stack</dt><dd>GitHub Actions, GitLab CI, Docker, Kubernetes</dd></div></dl>
+          </article>
+          <article class="project-card">
+            <div class="project-card__top"><span class="project-card__tag">Data Operations</span><span class="project-card__roi">Continuidad</span></div>
+            <h3>Optimización, respaldo y mantenimiento de bases de datos</h3>
+            <p>Diagnóstico de rendimiento, tuning de consultas, réplica, respaldos automatizados y recuperación ante desastres.</p>
+            <dl><div><dt>Uso</dt><dd>ERP y puntos de venta con necesidades de continuidad.</dd></div><div><dt>Stack</dt><dd>PostgreSQL, MySQL, SQL Server, Redis, MongoDB</dd></div></dl>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        let currentLanguage = 'es';
-        let activeTab = 'ai';
+  <section class="offer offer--projects" id="integration-security" aria-labelledby="s9">
+    <div class="container">
+      <div class="project-category">
+        <div class="project-category__head">
+          <div>
+            <p class="project-category__eyebrow">IT services / Category 03</p>
+            <h2 id="s9">Integration, cybersecurity, and quality</h2>
+          </div>
+          <span class="project-category__badge">Protection and software reliability</span>
+        </div>
+        <div class="project-grid" aria-label="Integration, cybersecurity, and quality services">
+          <article class="project-card">
+            <div class="project-card__top"><span class="project-card__tag">Ciberseguridad</span><span class="project-card__roi">Protección</span></div>
+            <h3>Auditoría de ciberseguridad básica y hardening</h3>
+            <p>Evaluación de vulnerabilidades en aplicaciones web y servidores, aplicación de parches y configuración de buenas prácticas.</p>
+            <dl><div><dt>Uso</dt><dd>SQL injection, XSS, SSL/TLS y firewalls.</dd></div><div><dt>Stack</dt><dd>Nmap, OWASP ZAP, Cloudflare, VPNs corporativas</dd></div></dl>
+          </article>
+          <article class="project-card">
+            <div class="project-card__top"><span class="project-card__tag">QA Automation</span><span class="project-card__roi">Confiabilidad</span></div>
+            <h3>Pruebas automatizadas de software</h3>
+            <p>Creación de suites de pruebas funcionales y de carga para asegurar que las aplicaciones funcionen antes de lanzamientos críticos.</p>
+            <dl><div><dt>Uso</dt><dd>E-commerce, pagos y registros de usuarios.</dd></div><div><dt>Stack</dt><dd>JUnit, Cypress, Playwright, JMeter</dd></div></dl>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        function applyLanguage(language) {
-            currentLanguage = language;
-            const copy = translations[language];
-            document.documentElement.lang = language;
-            document.title = copy.pageTitle;
-            document.querySelector('.cobalt-wordmark > span:last-child').textContent = copy.headerTitle;
-            document.getElementById('searchInput').placeholder = copy.searchPlaceholder;
-            document.getElementById('searchInput').setAttribute('aria-label', copy.searchPlaceholder);
-            document.querySelector('#projectCount span').textContent = activeTab === 'ai' ? copy.aiProjects : copy.itProjects;
-            document.querySelectorAll('[data-tab-label]').forEach(label => {
-                label.textContent = copy.tabs[label.dataset.tabLabel];
-            });
-            document.getElementById('regionLabel').innerHTML = '<i data-lucide="map-pin" class="w-3.5 h-3.5"></i>' + copy.region;
-            document.getElementById('heroTitle').textContent = activeTab === 'ai' ? copy.heroTitle : copy.itHeroTitle;
-            document.getElementById('heroDescription').textContent = activeTab === 'ai' ? copy.heroDescription : copy.itHeroDescription;
-            document.getElementById('heroAction').firstChild.textContent = copy.heroAction + ' ';
-            document.getElementById('heroNote').textContent = copy.heroNote;
-            document.getElementById('heroVisualTitle').textContent = copy.heroVisualTitle;
-            ['heroVisualOne', 'heroVisualTwo', 'heroVisualThree', 'heroVisualFour'].forEach((id, index) => {
-                const row = copy.heroVisual[activeTab][index];
-                document.getElementById(id).textContent = row[0];
-                document.getElementById(id).nextElementSibling.textContent = row[1];
-            });
-            document.getElementById('footerCopyright').textContent = copy.footerCopyright;
-            document.getElementById('footerDescription').textContent = copy.footerDescription;
-            updateThemeLabel(copy);
-            document.querySelectorAll('.language-button').forEach(button => {
-                button.setAttribute('aria-pressed', String(button.dataset.language === language));
-            });
-            renderDashboard(document.getElementById('searchInput').value);
-        }
+  <section class="offer offer--projects" id="b2b-support" aria-labelledby="s10">
+    <div class="container">
+      <div class="project-category">
+        <div class="project-category__head">
+          <div>
+            <p class="project-category__eyebrow">IT services / Category 04</p>
+            <h2 id="s10">Specialized support and B2B integrations</h2>
+          </div>
+          <span class="project-category__badge">Continuity, maintenance, and integration</span>
+        </div>
+        <div class="project-grid" aria-label="Specialized support and B2B integrations services">
+          <article class="project-card">
+            <div class="project-card__top"><span class="project-card__tag">Legacy Support</span><span class="project-card__roi">Evolutivo</span></div>
+            <h3>Mantenimiento evolutivo y correctivo de software legacy</h3>
+            <p>Soporte técnico y refactorización para sistemas antiguos que las empresas necesitan mantener y modernizar.</p>
+            <dl><div><dt>Uso</dt><dd>Corrección de bugs, dependencias y bases legadas.</dd></div><div><dt>Stack</dt><dd>Java, PHP y sistemas empresariales relacionales</dd></div></dl>
+          </article>
+          <article class="project-card">
+            <div class="project-card__top"><span class="project-card__tag">Payments / CFDI</span><span class="project-card__roi">Integrado</span></div>
+            <h3>Integración con pagos y facturación electrónica</h3>
+            <p>Conexión de sistemas existentes con PACs de facturación y procesamiento de pagos con tarjetas o transferencias.</p>
+            <dl><div><dt>Uso</dt><dd>Cobros recurrentes y facturas PDF/XML.</dd></div><div><dt>Stack</dt><dd>Stripe, Mercado Pago, Facturapi, Finkok</dd></div></dl>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        // Render only public project information.
-        function renderDashboard(filterText = '') {
-            const container = document.getElementById('tiersContainer');
-            container.innerHTML = '';
+  <section class="band" id="start" aria-labelledby="s6">
+    <div class="container code-close">
+      <div class="code-close__text">
+        <h2 id="s6">Your handler gets a type</h2>
+        <p class="lead">Answer 200 and the event is delivered. Anything else, and Norteva tries again.</p>
+      </div>
+      <figure class="pane" data-reveal="">
+        <p class="pair__file"><code>app/hooks/billing/route.ts</code><span>Your endpoint</span></p>
+        <pre class="code code--lg" tabindex="0" aria-label="The handler, in TypeScript"><code><span class="k">import type</span> { <span class="t">InvoicePaid</span> } <span class="k">from</span> <span class="s">"./invoice-paid"</span>;
 
-            let totalMatches = 0;
+        <span class="k">export async function</span> POST(req: <span class="t">Request</span>) {
+          <span class="k">const</span> event = (<span class="k">await</span> req.json()) <span class="k">as</span> <span class="t">InvoicePaid</span>;
+        <span class="hl">  console.log(event.id, event.amount, event.currency);</span>
+          <span class="k">return new</span> <span class="t">Response</span>(<span class="k">null</span>, { status: <span class="s">200</span> });
+        }</code></pre>
+        <figcaption>The type file is the one Norteva inferred from <code>evt_1042</code>.</figcaption>
+      </figure>
+    </div>
+  </section>
+</main>
 
-            const query = filterText.trim().toLowerCase();
-            const catalogData = query
-                ? [
-                    ...projectData.map(tierData => ({ ...tierData, catalogType: 'ai' })),
-                    ...itServicesData.map(tierData => ({ ...tierData, catalogType: 'it' }))
-                ]
-                : (activeTab === 'ai' ? projectData : itServicesData).map(tierData => ({ ...tierData, catalogType: activeTab }));
+<footer class="colophon">
+  <div class="container"><canvas class="mast" aria-hidden="true" width="1312" height="288" style="width: 1312px; height: 288px;"></canvas></div>
+</footer>
 
-            catalogData.forEach(tierData => {
-                // Filter projects based on search query
-                const filteredProjects = tierData.projects.filter(project => {
-                    return project.name.toLowerCase().includes(query) ||
-                           project.description.toLowerCase().includes(query) ||
-                           project.tag.toLowerCase().includes(query) ||
-                           project.zones.toLowerCase().includes(query) ||
-                           project.market.toLowerCase().includes(query);
-                });
+<script>
+window.hallmarkSlots = (m) => { for (const [k, v] of Object.entries(m)) { const s = document.querySelector(`[data-slot="${k}"]`); if (!s) continue; const im = new Image(); im.src = typeof v === 'string' ? v : v.src; im.alt = (typeof v === 'object' && v.alt) || s.dataset.alt || ''; s.querySelectorAll(':scope > img').forEach((o) => o.remove()); s.prepend(im); } };
+document.querySelectorAll('[data-slot] > img').forEach((i) => { if (i.complete && !i.naturalWidth) i.remove(); else i.addEventListener('error', () => i.remove(), { once: true }); });
+const jump = document.getElementById('jump');
+if (jump && jump.showPopover) {
+  addEventListener('keydown', (e) => { if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); jump.togglePopover(); } });
+  jump.addEventListener('toggle', (e) => { if (e.newState === 'open') jump.querySelector('a').focus(); });
+  jump.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => jump.hidePopover()));
+}
+const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -10% 0px' });
+document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));
+/* The free tier worked out on the visitor's number; the meter is fifty cells, each 2,000 events */
+const perDay = document.getElementById('per-day');
+if (perDay) {
+  const out = document.getElementById('per-month'), bar = document.getElementById('calc-bar'), say = document.getElementById('calc-say'), fmt = new Intl.NumberFormat('en-GB');
+  const run = () => { const n = Math.max(0, Math.round(Number(perDay.value) || 0)) * 30; out.textContent = fmt.format(n); const on = Math.min(50, Math.round(n / 2000)); bar.innerHTML = '<b>' + '▊'.repeat(on) + '</b>' + '·'.repeat(50 - on); bar.classList.toggle('is-over', n > 100000); say.textContent = n <= 100000 ? 'Inside the free 100,000, with ' + fmt.format(100000 - n) + ' to spare.' : fmt.format(n - 100000) + ' over the free 100,000 a month.'; };
+  perDay.addEventListener('input', run); run();
+}
+/* The switcher: four real panels on a tray of keys; arrows, Home, End and the number keys move between them; without script every panel shows in order */
+document.querySelectorAll('[data-switch]').forEach((sw) => {
+  const tabs = [...sw.querySelectorAll('[role="tab"]')];
+  const pick = (t, focus) => { tabs.forEach((x) => { const on = x === t; x.setAttribute('aria-selected', String(on)); x.tabIndex = on ? 0 : -1; document.getElementById(x.getAttribute('aria-controls')).hidden = !on; }); if (focus) t.focus(); };
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => pick(t));
+    t.addEventListener('keydown', (e) => { const d = { ArrowRight: 1, ArrowLeft: -1 }[e.key]; if (d) { e.preventDefault(); pick(tabs[(i + d + tabs.length) % tabs.length], true); } if (e.key === 'Home') { e.preventDefault(); pick(tabs[0], true); } if (e.key === 'End') { e.preventDefault(); pick(tabs[tabs.length - 1], true); } const n = Number(e.key); if (n >= 1 && n <= tabs.length) { e.preventDefault(); pick(tabs[n - 1], true); } });
+  });
+  pick(tabs[0]);
+  document.querySelectorAll('[data-tab-link]').forEach((a) => a.addEventListener('click', (e) => { const t = document.getElementById(a.dataset.tabLink); if (!t) return; e.preventDefault(); pick(t); sw.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' }); t.focus({ preventScroll: true }); }));
+});
+</script>
+<script>const mainContent = document.getElementById('main'); const catalogSection = document.getElementById('does'); const streamSection = document.getElementById('stream'); if (mainContent && catalogSection && streamSection) mainContent.insertBefore(catalogSection, streamSection);
+window.hallmarkSlots = (m) => { for (const [k, v] of Object.entries(m)) { const s = document.querySelector(`[data-slot="${k}"]`); if (!s) continue; const im = new Image(); im.src = typeof v === 'string' ? v : v.src; im.alt = (typeof v === 'object' && v.alt) || s.dataset.alt || ''; s.querySelectorAll(':scope > img').forEach((o) => o.remove()); s.prepend(im); } };
+</script>
+<script src="language.js" defer></script>
 
-                if (filteredProjects.length === 0) return;
-
-                totalMatches += filteredProjects.length;
-                const categories = tierData.catalogType === 'ai'
-                    ? translations[currentLanguage].categories
-                    : translations[currentLanguage].itCategories;
-
-                // Section HTML
-                const tierSection = document.createElement('section');
-                tierSection.className = 'space-y-4';
-
-                tierSection.innerHTML = `
-                    <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-800 pb-3 gap-2">
-                        <div class="flex items-center gap-3">
-                            <div class="p-2 rounded-lg bg-slate-900 border border-slate-800 ${tierData.badgeColor.split(' ')[1]}">
-                                <i data-lucide="${tierData.icon}" class="w-5 h-5"></i>
-                            </div>
-                            <h3 class="text-lg font-bold text-slate-100">${categories[tierData.tier - 1][0]}</h3>
-                        </div>
-                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${tierData.badgeColor} w-fit">
-                            ${categories[tierData.tier - 1][1]}
-                        </span>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4">
-                        ${filteredProjects.map(project => createProjectCardHTML(project, tierData.borderColor, tierData.catalogType)).join('')}
-                    </div>
-                `;
-
-                container.appendChild(tierSection);
-            });
-
-            if (totalMatches === 0) {
-                container.innerHTML = `
-                    <div class="text-center py-16 bg-slate-900/50 border border-slate-800 rounded-2xl">
-                        <i data-lucide="search-x" class="w-12 h-12 text-slate-600 mx-auto mb-3"></i>
-                        <h3 class="text-base font-semibold text-slate-300">${translations[currentLanguage].noResults}</h3>
-                        <p class="text-xs text-slate-500 mt-1">${translations[currentLanguage].noResultsDescription}</p>
-                    </div>
-                `;
-            }
-
-            // Re-initialize Lucide Icons for dynamic content
-            lucide.createIcons();
-        }
-
-        // HTML Generator for public-facing project cards.
-        function createProjectCardHTML(project, borderHighlight, catalogType) {
-            const audienceLabel = catalogType === 'ai' ? translations[currentLanguage].audience : translations[currentLanguage].useCases;
-            const locationLabel = catalogType === 'ai' ? translations[currentLanguage].locations : translations[currentLanguage].technologies;
-            return `
-                <article class="project-card relative min-h-64 bg-slate-900/75 hover:bg-slate-900 border border-slate-800/80 hover:${borderHighlight} rounded-xl p-5 transition-all duration-300 shadow-lg hover:shadow-2xl flex flex-col gap-5">
-                    <div class="space-y-3">
-                        <span class="inline-flex px-2.5 py-1 rounded-md text-[10px] font-semibold tracking-wider uppercase bg-slate-800 text-slate-300 border border-slate-700/50">
-                            ${project.tag}
-                        </span>
-                        <h4 class="text-lg font-bold text-white leading-snug">${project.name}</h4>
-                        <p class="text-sm text-slate-400 leading-relaxed">${project.description}</p>
-                    </div>
-                    <div class="mt-auto grid gap-3 border-t border-slate-800/80 pt-4 text-xs">
-                        <div class="flex items-start gap-2 text-slate-300">
-                            <i data-lucide="users" class="w-4 h-4 shrink-0 text-brand-500"></i>
-                            <span><strong class="font-semibold text-slate-200">${audienceLabel}:</strong> ${project.market}</span>
-                        </div>
-                        <div class="flex items-start gap-2 text-slate-400">
-                            <i data-lucide="map-pin" class="w-4 h-4 shrink-0 text-brand-500"></i>
-                            <span><strong class="font-semibold text-slate-300">${locationLabel}:</strong> ${project.zones}</span>
-                        </div>
-                    </div>
-                </article>
-            `;
-        }
-
-        function updateThemeLabel(copy = translations[currentLanguage]) {
-            const isDark = document.documentElement.classList.contains('dark');
-            const themeToggle = document.getElementById('themeToggle');
-            themeToggle.setAttribute('aria-pressed', String(isDark));
-            themeToggle.setAttribute('aria-label', isDark ? copy.themeToLight : copy.themeToDark);
-            themeToggle.setAttribute('title', isDark ? copy.themeToLight : copy.themeToDark);
-            themeToggle.innerHTML = `<i data-lucide="${isDark ? 'sun' : 'moon'}" class="w-4 h-4"></i>`;
-            lucide.createIcons();
-        }
-
-        // Initialize Application
-        document.addEventListener('DOMContentLoaded', () => {
-            const browserLanguages = navigator.languages?.length ? navigator.languages : [navigator.language];
-            const initialLanguage = browserLanguages.some(language => language.toLowerCase().startsWith('es')) ? 'es' : 'en';
-            applyLanguage(initialLanguage);
-
-            // Live Search Listener
-            const searchInput = document.getElementById('searchInput');
-            searchInput.addEventListener('input', (e) => {
-                renderDashboard(e.target.value);
-            });
-
-            document.querySelectorAll('.language-button').forEach(button => {
-                button.addEventListener('click', () => applyLanguage(button.dataset.language));
-            });
-
-            document.querySelectorAll('.catalog-tab').forEach(button => {
-                button.addEventListener('click', () => {
-                    activeTab = button.dataset.tab;
-                    document.querySelectorAll('.catalog-tab').forEach(tab => {
-                        const selected = tab.dataset.tab === activeTab;
-                        tab.setAttribute('aria-selected', String(selected));
-                        tab.classList.toggle('bg-emerald-500/15', selected);
-                        tab.classList.toggle('border-emerald-400/40', selected);
-                        tab.classList.toggle('text-emerald-300', selected);
-                        tab.classList.toggle('bg-slate-900', !selected);
-                        tab.classList.toggle('border-slate-800', !selected);
-                        tab.classList.toggle('text-slate-400', !selected);
-                    });
-                    applyLanguage(currentLanguage);
-                });
-            });
-
-            document.getElementById('themeToggle').addEventListener('click', () => {
-                document.documentElement.classList.toggle('dark');
-                updateThemeLabel();
-            });
-        });
-    </script>
-</body>
-</html>
+</body></html>
